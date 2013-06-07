@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'commander/import'
+require 'hakiri'
+require 'terminal-table'
+
+program :name, 'hakiri'
+program :version, Hakiri::VERSION
+program :description, 'Hakiri CLI'
+
+command :up do |c|
+  c.syntax = 'hakiri up [options]'
+  c.summary = 'Find versions.'
+  c.description = ''
+  c.example 'Find versions with Hakiri', 'hakiri up'
+
+  c.action do |args, options|
+    say 'Welcome to Hakiri!'
+    version_retriever = Hakiri::TechnologiesFetcher.new
+    puts Terminal::Table.new rows: version_retriever.fetch.to_a
+  end
+end
