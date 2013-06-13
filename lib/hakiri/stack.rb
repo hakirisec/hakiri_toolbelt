@@ -3,22 +3,29 @@ require 'active_support/all'
 class Hakiri::Stack
   attr_accessor :technologies, :default_path
 
+  # This method initialized Hakiri::Stack class
+  #
   def initialize()
     @default_path = ''
     @technologies = {}
   end
 
-  def build_from_json(technologies)
-
+  # This method parses a supplied JSON file and sets stack technologies.
+  #
+  # * *Args*    :
+  #   - +json_file+ -> JSON file with technologies in the Hakiri format.
+  #
+  def build_from_json_file(json_file)
+    @technologies = JSON.parse(IO.read(json_file))
   end
 
   # This method analyzes user input from the Hakiri gem and sets up
   # default paths to retrieve versions.
   #
   # * *Args*    :
-  #   - +server+ -> Rails server selection
-  #   - +extra_server+ -> Apache, nginx, both or neither
-  #   - +db+ -> DB selection
+  #   - +server+ -> Rails server selection.
+  #   - +extra_server+ -> Apache, nginx, both or neither.
+  #   - +db+ -> DB selection.
   #   - +redis+ -> is Redis present?
   #   - +memcached+ -> is Memcached present?
   #
@@ -77,14 +84,20 @@ class Hakiri::Stack
   def fetch_versions
     @technologies.each do |technology_name, value|
       begin
-        technology_class = Hakiri.const_get(technology_name.gsub('-', '_').camelcase)
-        technology_object = technology_class.new(value[:path])
-
-        if technology_object.version
-          @technologies[technology_name][:version] = technology_object.version
+        if @technologies[technology_name]['version'] and @technologies[technology_name]['version'] != ''
+          @technologies[technology_name][:version] = @technologies[technology_name]['version']
         else
-          @technologies.delete(technology_name)
+          technology_class = Hakiri.const_get(technology_name.gsub('-', '_').camelcase)
+          technology_object = technology_class.new(value[:path])
+
+          if technology_object.version
+            @technologies[technology_name][:version] = technology_object.version
+          else
+            @technologies.delete(technology_name)
+          end
         end
+
+        @technologies[technology_name].delete('version')
       rescue Exception => e
         puts "Error: technology #{technology_name} doesn't exist."
         @technologies.delete(technology_name)

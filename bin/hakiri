@@ -20,7 +20,16 @@ command :up do |c|
   c.action do |args, options|
     options.default json_file: './technologies.json'
 
-    say "#{options.json_file}"
+    say 'Welcome to Hakiri!'
+    say separator
+
+    stack = Hakiri::Stack.new()
+    stack.build_from_json_file(options.json_file)
+    stack.fetch_versions
+
+    cli_output = Hakiri::CliOutput.new
+    say "Here are versions that Hakiri found based on the JSON file:"
+    puts cli_output.fancy_technologies_table(stack.technologies)
   end
 end
 
@@ -63,12 +72,14 @@ command :steps do |c|
     memcached = agree 'Step 5 of 5: do you use Memcached? (yes or no) '
     say separator
     say 'Fetching versions on your system...'
+    say separator
 
     stack = Hakiri::Stack.new()
     stack.build_from_input(server, extra_server, db, redis, memcached)
     stack.fetch_versions
 
-    puts stack.technologies
-    #puts Terminal::Table.new rows: stack.technologies.to_a
+    cli_output = Hakiri::CliOutput.new
+    say 'Here are versions that Hakiri found:'
+    puts cli_output.fancy_technologies_table(stack.technologies)
   end
 end
