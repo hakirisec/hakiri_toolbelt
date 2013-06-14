@@ -30,6 +30,13 @@ command :up do |c|
     cli_output = Hakiri::CliOutput.new
     say "Here are versions that Hakiri found based on the JSON file:"
     puts cli_output.fancy_technologies_table(stack.technologies)
+    say separator
+
+    say 'Getting vulnerabilities information...'
+    puts Http.with_headers(:accept => 'application/json').
+        get('http:/0.0.0.0:3000/api/v1/issues.json')
+
+    #api_request = agree 'Do you want to  (yes or no) '
   end
 end
 
