@@ -1,9 +1,14 @@
 module Hakiri
 
 end
+
+require 'terminal-table'
+require 'http'
+
 require 'hakiri/stack'
 require 'hakiri/version'
 require 'hakiri/cli_output'
+
 require 'hakiri/technologies/technology'
 require 'hakiri/technologies/apache'
 require 'hakiri/technologies/apache_tomcat'
