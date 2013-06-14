@@ -4,9 +4,8 @@ require 'hakiri/version'
 Gem::Specification.new do |s|
   s.name          = 'hakiri'
   s.version       = Hakiri::VERSION
-  s.date          = '2013-06-04'
   s.summary       = 'CLI for Hakiri'
-  s.description   = 'This is a tool to automate bug hunting.'
+  s.description   = 'Hakiri is a CLI for www.hakiriup.com—a cloud security platform for Ruby on rails apps.'
   s.authors       = ['Vasily Vasinov']
   s.email         = 'vasinov@me.com'
   s.files         = `git ls-files`.split("\n")
@@ -19,4 +18,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'terminal-table'
   s.add_dependency 'active_support'
   s.add_dependency 'i18n'
+  s.add_dependency 'http'
 end
