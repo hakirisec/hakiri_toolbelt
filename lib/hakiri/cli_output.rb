@@ -4,8 +4,12 @@ class Hakiri::CliOutput
   end
 
   def fancy_technologies_table(technologies)
-    technologies.each { |key, value| @technologies_table << [key, value[:version]] }
+    technologies.each { |technology_name, payload| @technologies_table << [technology_name, payload[:version]] }
 
     Terminal::Table.new rows: @technologies_table
+  end
+
+  def separator
+    "+#{ '-' * 68 }+"
   end
 end

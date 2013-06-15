@@ -3,7 +3,7 @@ require 'active_support/all'
 class Hakiri::Stack
   attr_accessor :technologies, :default_path
 
-  # This method initialized Hakiri::Stack class
+  # This method initializes Hakiri::Stack class
   #
   def initialize()
     @default_path = ''
@@ -83,24 +83,17 @@ class Hakiri::Stack
   #
   def fetch_versions
     @technologies.each do |technology_name, value|
-      begin
-        if @technologies[technology_name]['version'] and @technologies[technology_name]['version'] != ''
-          @technologies[technology_name][:version] = @technologies[technology_name]['version']
+      @technologies[technology_name].symbolize_keys!
+
+      unless @technologies[technology_name][:version] and @technologies[technology_name][:version] != ''
+        technology_class = Hakiri.const_get(technology_name.gsub('-', '_').camelcase)
+        technology_object = technology_class.new(value[:path])
+
+        if technology_object.version
+          @technologies[technology_name][:version] = technology_object.version
         else
-          technology_class = Hakiri.const_get(technology_name.gsub('-', '_').camelcase)
-          technology_object = technology_class.new(value[:path])
-
-          if technology_object.version
-            @technologies[technology_name][:version] = technology_object.version
-          else
-            @technologies.delete(technology_name)
-          end
+          @technologies.delete(technology_name)
         end
-
-        @technologies[technology_name].delete('version')
-      rescue Exception => e
-        puts "Error: technology #{technology_name} doesn't exist."
-        @technologies.delete(technology_name)
       end
     end
   end

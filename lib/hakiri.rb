@@ -4,10 +4,12 @@ end
 
 require 'terminal-table'
 require 'http'
+require 'open-uri'
 
 require 'hakiri/stack'
 require 'hakiri/version'
 require 'hakiri/cli_output'
+require 'hakiri/http_client'
 
 require 'hakiri/technologies/technology'
 require 'hakiri/technologies/apache'

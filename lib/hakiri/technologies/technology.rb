@@ -14,6 +14,6 @@ class Hakiri::Technology
   #   - +output+ -> Output that triggered the error.
   #
   def puts_error(e, output)
-    puts "Error: #{output.lines.first}"
+    puts "!    Can't find #{self.class.name.demodulize}: #{output.lines.first}"
   end
 end
