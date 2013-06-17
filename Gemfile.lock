@@ -1,3 +1,13 @@
+PATH
+  remote: .
+  specs:
+    hakiri (0.1.0)
+      active_support
+      commander
+      http
+      i18n
+      terminal-table
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -20,8 +30,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_support
-  commander
-  http
-  i18n
-  terminal-table
+  hakiri!

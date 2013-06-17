@@ -25,6 +25,7 @@ command :up do |c|
     stack.build_from_json_file(options.json_file)
     stack.fetch_versions
 
+    # GETTING VERSIONS
     say '-----> Retrieving software versions on your system...'
 
     if stack.technologies.empty?
@@ -35,6 +36,12 @@ command :up do |c|
         say "-----> Found #{technology_name} #{payload[:version]}"
       end
 
+      # UPDATE VERSIONS ON THE SERVER
+      if http_client.auth_token
+        response = http_client.should_sync_versions(params)
+      end
+
+      # GETTING VULNERABILITIES
       say '-----> Getting vulnerabilities information...'
       response = http_client.get_issues(params)
       authenticated = response[:meta][:authenticated]
@@ -52,9 +59,7 @@ command :up do |c|
         end
 
         if authenticated
-          show_issues = agree 'Show all of them? (yes or no) '
-
-          if show_issues
+          if agree 'Show all of them? (yes or no) '
             puts ' '
             response[:technologies].each do |technology|
               technology[:issues].each do |issue|
@@ -81,35 +86,37 @@ command :steps do |c|
   c.action do |args, options|
     say 'Hakiri Walkthrough will help you configure your stack step by step and show '
     say 'you vulnerabilities at the end.'
-    say cli_output.separator
+    puts ' '
     say 'Step 1 of 5: Rails Server'
     say '1. Unicorn'
     say '2. Phusion Passenger'
     say '3. Thin'
     say '4. Trinidad'
     say '5. None of the above'
+
     server = ask('What do you use as your Rails server? (1, 2, 3, 4 or 5) ', Integer) { |q| q.in = 1..5 }
-    say cli_output.separator
+    puts ' '
     say 'Step 2 of 5: Secondary Server'
     say '1. Apache'
     say '2. nginx'
     say '3. Both'
     say '4. Neither'
+
     extra_server = ask('Do you use Apache or nginx? (1, 2, 3 or 4) ', Integer) { |q| q.in = 1..4 }
-    say cli_output.separator
+    puts ' '
     say 'Step 3 of 5: Database'
     say '1. MySQL'
     say '2. Postgres'
     say '3. MongoDB'
     say '4. None of the above'
+
     db = ask('What database do you use? (1, 2, 3 or 4) ', Integer) { |q| q.in = 1..4 }
-    say cli_output.separator
+    puts ' '
     redis = agree 'Step 4 of 5: do you use Redis? (yes or no) '
-    say cli_output.separator
+    puts ' '
     memcached = agree 'Step 5 of 5: do you use Memcached? (yes or no) '
-    say cli_output.separator
+
     say '-----> Retrieving software versions versions on your system...'
-    say cli_output.separator
 
     stack = Hakiri::Stack.new()
     stack.build_from_input(server, extra_server, db, redis, memcached)
