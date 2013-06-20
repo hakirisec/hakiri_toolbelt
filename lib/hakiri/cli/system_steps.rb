@@ -54,7 +54,7 @@ class Hakiri::SystemSteps < Hakiri::Cli
       else
         response[:technologies].each do |technology|
           unless technology[:issues_count] == 0
-            say "-----> Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:technology][:name]} #{technology[:version]}"
+            say "-----> Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:name]} #{technology[:version]}"
             puts ' '
           end
         end
