@@ -21,55 +21,8 @@ command 'system:scan' do |c|
   c.action do |args, options|
     options.default stack: './technologies.json'
 
-    stack = Hakiri::Stack.new()
-    stack.build_from_json_file(options.stack)
-    stack.fetch_versions
-
-    # GETTING VERSIONS
-    say '-----> Scanning system for software versions...'
-
-    if stack.technologies.empty?
-      say '-----> No versions were found...'
-    else
-      stack.technologies.each do |technology_name, payload|
-        say "-----> Found #{technology_name} #{payload[:version]}"
-      end
-
-      # GETTING VULNERABILITIES
-      say '-----> Searching for vulnerabilities...'
-      params = ({ technologies: stack.technologies }.to_param)
-      response = http_client.get_issues(params)
-      authenticated = response[:meta][:authenticated]
-
-      if response[:technologies].empty?
-        say 'No vulnerabilities found, awesome!'
-      else
-        response[:technologies].each do |technology|
-          technology
-
-          unless technology[:issues_count] == 0
-            say "-----> Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:name]} #{technology[:version]}"
-            puts ' '
-          end
-        end
-
-        if authenticated
-          if agree 'Show all of them? (yes or no) '
-            puts ' '
-            response[:technologies].each do |technology|
-              technology[:issues].each do |issue|
-                say issue[:name]
-                say issue[:description]
-                puts ' '
-              end
-            end
-          end
-        else
-          say '****** Signup on www.hakiriup.com and make your command line requests with an auth_token, so you can see issues that your technologies have.'
-          say '****** You will also receive notifications via email whenever new issues are found.'
-        end
-      end
-    end
+    cli = Hakiri::SystemScan.new(args, options)
+    cli.command
   end
 end
 
@@ -84,57 +37,8 @@ command 'system:sync' do |c|
     options.default stack: './technologies.json'
     options.default project: nil
 
-    stack = Hakiri::Stack.new()
-    stack.build_from_json_file(options.stack)
-    stack.fetch_versions
-
-    if http_client.auth_token
-      # GETTING VERSIONS
-      say '-----> Scanning system for software versions...'
-
-      if stack.technologies.empty?
-        say '-----> No versions were found...'
-      else
-        stack.technologies.each do |technology_name, payload|
-          say "-----> Found #{technology_name} #{payload[:version]}"
-        end
-
-        # CHECK VERSIONS ON THE SERVER
-        params = ({ project_id: options.project, technologies: stack.technologies }.to_param)
-        say '-----> Checking software versions on www.hakiriup.com...'
-        response = http_client.check_versions_diff(params)
-
-        if response.has_key? :errors
-          response[:errors].each do |error|
-            say "!     Error syncing: #{error}"
-          end
-        else
-          if response[:diffs].any?
-            response[:diffs].each do |diff|
-              if diff[:hakiri_version]
-                say "-----> System version of #{diff[:technology]} is newer (#{diff[:system_version]} > #{diff[:hakiri_version]})"
-              else
-                say "-----> New technology detected: #{diff[:technology]} #{diff[:system_version]}"
-              end
-            end
-
-            update = agree "Do you want to update \"#{response[:project][:name]}\" with new versions? (yes or no) "
-
-            if update
-              response = http_client.sync_project_versions(response[:project][:id], params)
-
-              puts response
-            end
-          else
-            say '-----> No differences were found. Everything is up to date.'
-          end
-        end
-
-        # UPDATE VERSIONS ON THE SERVER
-      end
-    else
-      say '!     You have to setup HAKIRI_AUTH_TOKEN environmental variable with your Hakiri authentication token.'
-    end
+    cli = Hakiri::SystemSync.new(args, options)
+    cli.command
   end
 end
 
