@@ -1,3 +1,5 @@
+require 'rest_client'
+
 class Hakiri::HttpClient
   attr_accessor :auth_token, :api_url
 
@@ -7,14 +9,14 @@ class Hakiri::HttpClient
   end
 
   def get_issues(params)
-    JSON.parse(URI.parse("#{@api_url}/issues.json?auth_token=#{@auth_token}&#{params}").read, symbolize_names: true)
+    JSON.parse(RestClient.get("#{@api_url}/issues.json?auth_token=#{@auth_token}&#{params}").to_str, symbolize_names: true)
   end
 
   def check_versions_diff(params)
-    JSON.parse(URI.parse("#{@api_url}/versions/diffs.json?auth_token=#{@auth_token}&#{params}").read, symbolize_names: true)
+    JSON.parse(RestClient.get("#{@api_url}/versions/diffs.json?auth_token=#{@auth_token}&#{params}").to_str, symbolize_names: true)
   end
 
-  #def should_sync_versions(params)
-  #  JSON.parse(URI.parse("#{@api_url}/technologies.json?auth_token=#{@auth_token}&#{params}").read, symbolize_names: true)
-  #end
+  def sync_project_versions(project_id, params)
+    JSON.parse(RestClient.put("#{@api_url}/projects/#{project_id}.json?auth_token=#{@auth_token}", params).to_str, symbolize_names: true)
+  end
 end

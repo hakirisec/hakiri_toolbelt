@@ -109,18 +109,25 @@ command 'system:sync' do |c|
             say "!     Error syncing: #{error}"
           end
         else
-          if response[:diffs].empty?
-
-          end
-          response[:diffs].each do |diff|
-            if diff[:hakiri_version]
-              say "-----> System version of #{diff[:technology]} is newer (#{diff[:system_version]} > #{diff[:hakiri_version]})"
-            else
-              say "-----> New technology detected: #{diff[:technology]} #{diff[:system_version]}"
+          if response[:diffs].any?
+            response[:diffs].each do |diff|
+              if diff[:hakiri_version]
+                say "-----> System version of #{diff[:technology]} is newer (#{diff[:system_version]} > #{diff[:hakiri_version]})"
+              else
+                say "-----> New technology detected: #{diff[:technology]} #{diff[:system_version]}"
+              end
             end
-          end
 
-          update = agree "Do you want to update \"#{response[:project][:name]}\" with new versions? (yes or no) "
+            update = agree "Do you want to update \"#{response[:project][:name]}\" with new versions? (yes or no) "
+
+            if update
+              response = http_client.sync_project_versions(response[:project][:id], params)
+
+              puts response
+            end
+          else
+            say '-----> No differences were found. Everything is up to date.'
+          end
         end
 
         # UPDATE VERSIONS ON THE SERVER
