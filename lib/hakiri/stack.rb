@@ -8,6 +8,7 @@ class Hakiri::Stack
   def initialize()
     @default_path = ''
     @technologies = {}
+    @errors = []
   end
 
   # This method parses a supplied JSON file and sets stack technologies.

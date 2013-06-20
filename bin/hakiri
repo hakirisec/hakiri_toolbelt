@@ -12,37 +12,32 @@ program :name, 'hakiri'
 program :version, Hakiri::VERSION
 program :description, 'Hakiri CLI'
 
-command :up do |c|
-  c.syntax = 'hakiri up [options]'
+command 'system:scan' do |c|
+  c.syntax = 'hakiri system:scan [options]'
   c.summary = 'Configure your stack with a JSON file.'
-  c.description = 'This command lets you load your custom stack JSON file, parses it and uploads it to your project at to www.hakiriup.com.'
-  c.option '--json_file STRING', String, 'Path to your JSON file'
+  c.description = 'This command grabs your custom stack JSON file and shows vulnerabilities in your project.'
+  c.option '--stack STRING', String, 'Path to your JSON file'
 
   c.action do |args, options|
-    options.default json_file: './technologies.json'
+    options.default stack: './technologies.json'
 
     stack = Hakiri::Stack.new()
-    stack.build_from_json_file(options.json_file)
+    stack.build_from_json_file(options.stack)
     stack.fetch_versions
 
     # GETTING VERSIONS
-    say '-----> Retrieving software versions on your system...'
+    say '-----> Scanning system for software versions...'
 
     if stack.technologies.empty?
       say '-----> No versions were found...'
     else
-      params = ({ technologies: stack.technologies }.to_param)
       stack.technologies.each do |technology_name, payload|
         say "-----> Found #{technology_name} #{payload[:version]}"
       end
 
-      # UPDATE VERSIONS ON THE SERVER
-      if http_client.auth_token
-        response = http_client.should_sync_versions(params)
-      end
-
       # GETTING VULNERABILITIES
-      say '-----> Getting vulnerabilities information...'
+      say '-----> Searching for vulnerabilities...'
+      params = ({ technologies: stack.technologies }.to_param)
       response = http_client.get_issues(params)
       authenticated = response[:meta][:authenticated]
 
@@ -78,8 +73,66 @@ command :up do |c|
   end
 end
 
-command :steps do |c|
-  c.syntax = 'hakiri steps [options]'
+command 'system:sync' do |c|
+  c.syntax = 'hakiri system:sync [options]'
+  c.summary = 'Sync your system\'s software versions with the server.'
+  c.description = 'This command grabs your custom stack JSON file, and syncs it with your project on www.hakiriup.com.'
+  c.option '--stack STRING', String, 'Path to your JSON file stack'
+  c.option '--project INTEGER', Integer, 'Your project ID.'
+
+  c.action do |args, options|
+    options.default stack: './technologies.json'
+    options.default project: nil
+
+    stack = Hakiri::Stack.new()
+    stack.build_from_json_file(options.stack)
+    stack.fetch_versions
+
+    if http_client.auth_token
+      # GETTING VERSIONS
+      say '-----> Scanning system for software versions...'
+
+      if stack.technologies.empty?
+        say '-----> No versions were found...'
+      else
+        stack.technologies.each do |technology_name, payload|
+          say "-----> Found #{technology_name} #{payload[:version]}"
+        end
+
+        # CHECK VERSIONS ON THE SERVER
+        params = ({ project_id: options.project, technologies: stack.technologies }.to_param)
+        say '-----> Checking software versions on www.hakiriup.com...'
+        response = http_client.check_versions_diff(params)
+
+        if response.has_key? :errors
+          response[:errors].each do |error|
+            say "!     Error syncing: #{error}"
+          end
+        else
+          if response[:diffs].empty?
+
+          end
+          response[:diffs].each do |diff|
+            if diff[:hakiri_version]
+              say "-----> System version of #{diff[:technology]} is newer (#{diff[:system_version]} > #{diff[:hakiri_version]})"
+            else
+              say "-----> New technology detected: #{diff[:technology]} #{diff[:system_version]}"
+            end
+          end
+
+          update = agree "Do you want to update \"#{response[:project][:name]}\" with new versions? (yes or no) "
+        end
+
+        # UPDATE VERSIONS ON THE SERVER
+      end
+    else
+      say '!     You have to setup HAKIRI_AUTH_TOKEN environmental variable with your Hakiri authentication token.'
+    end
+  end
+end
+
+command 'system:steps' do |c|
+  c.syntax = 'hakiri system:steps [options]'
   c.summary = 'Configure your stack in the simple walkthrough.'
   c.description = 'This command launches a step by step walkthrough that will help you customize your stack.'
 
