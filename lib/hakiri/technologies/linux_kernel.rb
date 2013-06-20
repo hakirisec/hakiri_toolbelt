@@ -1,4 +1,10 @@
 class Hakiri::LinuxKernel < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'Linux Kernel'
+  end
+
   def version
     begin
       output = `#{@path}uname -r  2>&1`

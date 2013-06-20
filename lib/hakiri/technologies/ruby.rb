@@ -1,4 +1,10 @@
 class Hakiri::Ruby < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'Ruby'
+  end
+
   def version
     begin
       output = `#{@path}ruby -v 2>&1`

@@ -1,4 +1,10 @@
 class Hakiri::Java < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'Java'
+  end
+
   def version
     begin
       output = `#{@path}java -version 2>&1 | awk 'NR == 2 { print ; }'`

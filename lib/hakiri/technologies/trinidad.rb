@@ -1,4 +1,10 @@
 class Hakiri::Trinidad < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'Trinidad'
+  end
+
   def version
     begin
       output = `#{@path}trinidad -v 2>&1 | awk 'NR == 2 { print ; }'`

@@ -1,4 +1,10 @@
 class Hakiri::Mongodb < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'MongoDB'
+  end
+
   def version
     begin
       output = `ps -ax | grep mongo 2>&1`

@@ -1,4 +1,10 @@
 class Hakiri::Nginx < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'nginx'
+  end
+
   def version
     begin
       output = `#{@path}nginx -v 2>&1`

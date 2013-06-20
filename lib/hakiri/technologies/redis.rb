@@ -1,4 +1,10 @@
 class Hakiri::Redis < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'Redis'
+  end
+
   def version
     begin
       output = `#{@path}redis-server -v 2>&1`

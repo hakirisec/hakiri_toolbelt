@@ -1,4 +1,10 @@
 class Hakiri::Unicorn < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'Unicorn'
+  end
+
   def version
     begin
       output = `#{@path}unicorn -v 2>&1`

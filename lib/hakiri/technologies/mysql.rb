@@ -1,4 +1,10 @@
 class Hakiri::Mysql < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'MySQL'
+  end
+
   def version
     begin
       output = `#{@path}mysql -version 2>&1`

@@ -1,4 +1,10 @@
 class Hakiri::PhusionPassenger < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'Phusion Passenger'
+  end
+
   def version
     begin
       output = `#{@path}passenger -v 2>&1 | awk 'NR == 1 { print ; }'`

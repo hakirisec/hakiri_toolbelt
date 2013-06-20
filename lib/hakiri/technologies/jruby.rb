@@ -1,4 +1,10 @@
 class Hakiri::Jruby < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'JRuby'
+  end
+
   def version
     begin
       output = `#{@path}jruby -v 2>&1 | awk 'NR == 2 { print ; }'`

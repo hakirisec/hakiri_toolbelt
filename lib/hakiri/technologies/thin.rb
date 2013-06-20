@@ -1,4 +1,10 @@
 class Hakiri::Thin < Hakiri::Technology
+  def initialize(path = '')
+    super
+
+    @name = 'Thin'
+  end
+
   def version
     begin
       output = `#{@path}thin -v 2>&1`
