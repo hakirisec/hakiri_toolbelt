@@ -9,8 +9,8 @@ class Hakiri::SystemScan < Hakiri::Cli
     if @stack.technologies.empty?
       say '-----> No versions were found...'
     else
-      @stack.technologies.each do |technology_name, payload|
-        say "-----> Found #{technology_name} #{payload[:version]}"
+      @stack.technologies.each do |technology_slug, payload|
+        say "-----> Found #{payload[:name]} #{payload[:version]}"
       end
 
       # GETTING VULNERABILITIES

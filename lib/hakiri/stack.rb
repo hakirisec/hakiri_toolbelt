@@ -32,7 +32,7 @@ class Hakiri::Stack
   #
   def build_from_input(server, extra_server, db, redis, memcached)
     @technologies['ruby'] = { path: @default_path }
-    @technologies['ruby_on_rails'] = { path: @default_path }
+    @technologies['ruby-on-rails'] = { path: @default_path }
 
     case server
       when 1
@@ -83,18 +83,17 @@ class Hakiri::Stack
   # get overwritten by this method.
   #
   def fetch_versions
-    @technologies.each do |technology_name, value|
-      @technologies[technology_name].symbolize_keys!
+    @technologies.each do |technology_slug, value|
+      @technologies[technology_slug].symbolize_keys!
 
-      unless @technologies[technology_name][:version] and @technologies[technology_name][:version] != ''
-        technology_class = Hakiri.const_get(technology_name.gsub('-', '_').camelcase)
-        technology_object = technology_class.new(value[:path])
+      technology_class = Hakiri.const_get(technology_slug.gsub('-', '_').camelcase)
+      technology_object = technology_class.new(value[:path])
 
-        if technology_object.version
-          @technologies[technology_name][:version] = technology_object.version
-        else
-          @technologies.delete(technology_name)
-        end
+      if technology_object.version
+        @technologies[technology_slug][:version] = technology_object.version unless @technologies[technology_slug][:version] and @technologies[technology_slug][:version] != ''
+        @technologies[technology_slug][:name] = technology_object.name
+      else
+        @technologies.delete(technology_slug)
       end
     end
   end
