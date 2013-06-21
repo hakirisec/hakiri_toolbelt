@@ -3,7 +3,8 @@ require 'active_support/all'
 class Hakiri::Stack
   attr_accessor :technologies, :default_path
 
-  # This method initializes Hakiri::Stack class
+  #
+  # Initializes a stack.
   #
   def initialize()
     @default_path = ''
@@ -11,24 +12,34 @@ class Hakiri::Stack
     @errors = []
   end
 
-  # This method parses a supplied JSON file and sets stack technologies.
   #
-  # * *Args*    :
-  #   - +json_file+ -> JSON file with technologies in the Hakiri format.
+  # Parses a supplied JSON file and sets stack technologies.
+  #
+  # @param [String] json_file
+  #   JSON file with technologies in the Hakiri format.
   #
   def build_from_json_file(json_file)
     @technologies = JSON.parse(IO.read(json_file))
   end
 
+  #
   # This method analyzes user input from the Hakiri gem and sets up
   # default paths to retrieve versions.
   #
-  # * *Args*    :
-  #   - +server+ -> Rails server selection.
-  #   - +extra_server+ -> Apache, nginx, both or neither.
-  #   - +db+ -> DB selection.
-  #   - +redis+ -> is Redis present?
-  #   - +memcached+ -> is Memcached present?
+  # @param [String] server
+  #   Rails server selection.
+  #
+  # @param [String] extra_server
+  #   Apache, nginx, both or neither.
+  #
+  # @param [String] db
+  #   DB selection.
+  #
+  # @param [String] redis
+  #   Is Redis present?
+  #
+  # @param [String] memcached
+  #   Is Memcached present?
   #
   def build_from_input(server, extra_server, db, redis, memcached)
     @technologies['ruby'] = { path: @default_path }
@@ -78,7 +89,8 @@ class Hakiri::Stack
     @technologies['memcached'] = { path: @default_path } if memcached
   end
 
-  # This method attempts to get versions of technologies in the @technologies
+  #
+  # Attempts to get versions of technologies in the @technologies
   # instance variable. If a version is part of a technology hash then it doesn't
   # get overwritten by this method.
   #

@@ -5,9 +5,6 @@ require 'commander/import'
 require 'hakiri'
 require 'terminal-table'
 
-cli_output = Hakiri::CliOutput.new
-http_client = Hakiri::HttpClient.new
-
 program :name, 'hakiri'
 program :version, Hakiri::VERSION
 program :description, 'Hakiri CLI'

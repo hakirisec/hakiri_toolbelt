@@ -1,4 +1,7 @@
 class Hakiri::SystemSteps < Hakiri::Cli
+  #
+  # Walks the user through manual technologies selection.
+  #
   def command
     say 'Hakiri Walkthrough will help you configure your @stack step by step and show '
     say 'you vulnerabilities at the end.'

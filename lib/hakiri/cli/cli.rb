@@ -1,4 +1,7 @@
 class Hakiri::Cli
+  #
+  # Initializes a CLI
+  #
   def initialize(args, options)
     @args = args
     @options = options

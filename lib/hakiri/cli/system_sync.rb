@@ -1,4 +1,7 @@
 class Hakiri::SystemSync < Hakiri::Cli
+  #
+  # Walks the user through the version syncing process.
+  #
   def command
     @stack.build_from_json_file(@options.stack)
     @stack.fetch_versions

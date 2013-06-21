@@ -1,4 +1,7 @@
 class Hakiri::SystemScan < Hakiri::Cli
+  #
+  # Walks the user through system scanning process.
+  #
   def command
     @stack.build_from_json_file(@options.stack)
     @stack.fetch_versions
