@@ -29,7 +29,12 @@ class Hakiri::SystemSync < Hakiri::Cli
               if diff[:success]
                 if diff[:hakiri_version]
                   @stack.technologies[diff[:technology][:slug]] = { version: diff[:system_version] }
-                  say "-----> System version of #{diff[:technology][:name]} is newer (#{diff[:system_version]} > #{diff[:hakiri_version]})"
+
+                  if diff[:system_version_newer]
+                    say "-----> System version of #{diff[:technology][:name]} is newer (#{diff[:system_version]} > #{diff[:hakiri_version]})"
+                  else
+                    say "-----> System version of #{diff[:technology][:name]} is older (#{diff[:system_version]} < #{diff[:hakiri_version]})"
+                  end
                 else
                   say "-----> New technology detected: #{diff[:technology][:name]} #{diff[:system_version]}"
                 end
@@ -39,7 +44,7 @@ class Hakiri::SystemSync < Hakiri::Cli
             end
 
             if @stack.technologies.any?
-              update = agree "Do you want to update \"#{response[:project][:name]}\" with new versions? (yes or no) "
+              update = agree "Do you want to update \"#{response[:project][:name]}\" with system versions? (yes or no) "
             else
               say '-----> Nothing to update.'
             end
