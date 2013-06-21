@@ -21,9 +21,10 @@ class Hakiri::SystemSync < Hakiri::Cli
         params = ({ project_id: @options.project, technologies: @stack.technologies }.to_param)
         say '-----> Checking software versions on www.hakiriup.com...'
         response = @http_client.check_versions_diff(params)
+
         if response[:errors]
           response[:errors].each do |error|
-            say "!      #{error}"
+            say "!      Server Error: #{error}"
           end
         else
           if response[:diffs].any?
@@ -46,6 +47,7 @@ class Hakiri::SystemSync < Hakiri::Cli
               end
             end
 
+            # UPDATE VERSIONS ON THE SERVER
             if @stack.technologies.any?
               update = agree "Do you want to update \"#{response[:project][:name]}\" with system versions? (yes or no) "
             else
@@ -55,12 +57,19 @@ class Hakiri::SystemSync < Hakiri::Cli
             if update
               params = ({ project_id: @options.project, technologies: @stack.technologies }.to_param)
               response = @http_client.sync_project_versions(response[:project][:id], params)
-              if response[:updated].any?
-                response[:updated].each do |update|
-                  if update[:success]
-                    say "-----> #{update[:technology][:name]} was updated to #{update[:new_version]}"
-                  else
-                    say "!      Error syncing #{update[:technology][:name]}: #{update[:errors][:value][0]}"
+
+              if response[:errors]
+                response[:errors].each do |error|
+                  say "!      Server Error: #{error}"
+                end
+              else
+                if response[:updated].any?
+                  response[:updated].each do |update|
+                    if update[:success]
+                      say "-----> #{update[:technology][:name]} was updated to #{update[:new_version]}"
+                    else
+                      say "!      Error syncing #{update[:technology][:name]}: #{update[:errors][:value][0]}"
+                    end
                   end
                 end
               end
@@ -69,7 +78,6 @@ class Hakiri::SystemSync < Hakiri::Cli
             say '-----> No differences were found. Everything is up to date.'
           end
         end
-        # UPDATE VERSIONS ON THE SERVER
       end
     else
       say '!      You have to setup HAKIRI_AUTH_TOKEN environmental variable with your Hakiri authentication token.'
