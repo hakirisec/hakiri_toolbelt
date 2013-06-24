@@ -3,11 +3,21 @@
 require 'rubygems'
 require 'commander/import'
 require 'hakiri'
-require 'terminal-table'
 
 program :name, 'hakiri'
 program :version, Hakiri::VERSION
 program :description, 'Hakiri CLI'
+
+command 'stackfile:generate' do |c|
+  c.syntax = 'hakiri stackfile:generate'
+  c.summary = 'Generates a stack file with example technologies.'
+  c.description = 'This command generates a JSON file with commented out technologies supported by Hakiri..'
+
+  c.action do |args, options|
+    cli = Hakiri::Manifest.new(args, options)
+    cli.generate
+  end
+end
 
 command 'system:scan' do |c|
   c.syntax = 'hakiri system:scan [options]'
@@ -18,8 +28,8 @@ command 'system:scan' do |c|
   c.action do |args, options|
     options.default stack: './technologies.json'
 
-    cli = Hakiri::SystemScan.new(args, options)
-    cli.command
+    cli = Hakiri::System.new(args, options)
+    cli.scan
   end
 end
 
@@ -34,8 +44,8 @@ command 'system:sync' do |c|
     options.default stack: './technologies.json'
     options.default project: nil
 
-    cli = Hakiri::SystemSync.new(args, options)
-    cli.command
+    cli = Hakiri::System.new(args, options)
+    cli.sync
   end
 end
 
@@ -45,7 +55,7 @@ command 'system:steps' do |c|
   c.description = 'This command launches a step by step walkthrough that will help you customize your stack.'
 
   c.action do |args, options|
-    cli = Hakiri::SystemSteps.new(args, options)
-    cli.command
+    cli = Hakiri::System.new(args, options)
+    cli.steps
   end
 end

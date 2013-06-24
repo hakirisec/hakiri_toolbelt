@@ -7,9 +7,8 @@ require 'http'
 require 'open-uri'
 
 require 'hakiri/cli/cli'
-require 'hakiri/cli/system_sync'
-require 'hakiri/cli/system_scan'
-require 'hakiri/cli/system_steps'
+require 'hakiri/cli/system'
+require 'hakiri/cli/manifest'
 
 require 'hakiri/stack'
 require 'hakiri/version'
