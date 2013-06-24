@@ -1,0 +1,19 @@
+{
+    "apache": { "path": "", "version": "" },
+    "apache-tomcat": { "path": "", "version": "" },
+    "java": { "path": "", "version": "" },
+    "jruby": { "path": "", "version": "" },
+    "linux-kernel": { "path": "", "version": "" },
+    "memcached": { "path": "", "version": "" },
+    "mongodb": { "path": "", "version": "" },
+    "mysql": { "path": "", "version": "" },
+    "nginx": { "path": "", "version": "" },
+    "phusion-passenger": { "path": "", "version": "" },
+    "postgres": { "path": "", "version": "" },
+    "redis": { "path": "", "version": "" },
+    "ruby": { "path": "", "version": "" },
+    "ruby-on-rails": { "path": "", "version": "" },
+    "thin": { "path": "", "version": "" },
+    "trinidad": { "path": "", "version": "" },
+    "unicorn": { "path": "", "version": "" }
+}

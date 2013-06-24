@@ -1,12 +1,11 @@
+require 'fileutils'
+
 class Hakiri::Manifest < Hakiri::Cli
   #
   # Generates a JSON manifest file
   #
   def generate
-    File.open(file, 'w') do |f|
-
-    end
-    File.chmod 0755, file
-    say "-----> Generated manifest in #{file}"
+    FileUtils::copy_file "#{File.dirname(__FILE__)}/manifest.json", "#{Dir.pwd}/manifest.json"
+    File.chmod 0755, "#{Dir.pwd}/manifest.json"
   end
 end
