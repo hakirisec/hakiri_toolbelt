@@ -33,23 +33,22 @@ class Hakiri::System < Hakiri::Cli
         else
           response[:technologies].each do |technology|
             unless technology[:issues_count] == 0
-              say "-----> Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:technology][:name]} #{technology[:version]}"
-              puts ' '
+              say "-----> Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:name]} #{technology[:version]}"
             end
           end
 
-          if authenticated
-            if agree 'Show all of them? (yes or no) '
-              puts ' '
-              response[:technologies].each do |technology|
-                technology[:issues].each do |issue|
-                  say issue[:name]
-                  say issue[:description]
-                  puts ' '
-                end
+          if agree 'Show all of them? (yes or no) '
+            puts ' '
+            response[:technologies].each do |technology|
+              technology[:issues].each do |issue|
+                say issue[:name]
+                say issue[:description]
+                puts ' '
               end
             end
-          else
+          end
+
+          unless authenticated
             say '****** Signup on www.hakiriup.com and make your command line requests with an auth_token, so you can see issues that your technologies have.'
             say '****** You will also receive notifications via email whenever new issues are found.'
           end
