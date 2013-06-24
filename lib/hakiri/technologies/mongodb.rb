@@ -16,6 +16,6 @@ class Hakiri::Mongodb < Hakiri::Technology
   end
 
   def puts_error(e, output)
-    puts "Error: couldn't find a running version of MongoDB"
+    say '!      Can\'t find MongoDB'
   end
 end

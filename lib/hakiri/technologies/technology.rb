@@ -19,6 +19,6 @@ class Hakiri::Technology
   #   System output from attempted version query.
   #
   def puts_error(e, output)
-    say "!      Can't find #{self.class.name.demodulize}: #{output.lines.first}"
+    say "!      Can't find #{name}: #{output.lines.first}"
   end
 end
