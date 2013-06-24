@@ -73,7 +73,7 @@ class Hakiri::System < Hakiri::Cli
         say '-----> No versions were found...'
       else
         @stack.technologies.each do |technology_name, payload|
-          say "-----> Found #{technology_name} #{payload[:version]}"
+          say "-----> Found #{payload[:name]} #{payload[:version]}"
         end
 
         # CHECK VERSIONS ON THE SERVER
@@ -90,9 +90,9 @@ class Hakiri::System < Hakiri::Cli
             @stack.technologies = {}
             response[:diffs].each do |diff|
               if diff[:success]
-                if diff[:hakiri_version]
-                  @stack.technologies[diff[:technology][:slug]] = { version: diff[:system_version] }
+                @stack.technologies[diff[:technology][:slug]] = { version: diff[:system_version] }
 
+                if diff[:hakiri_version]
                   if diff[:system_version_newer]
                     say "-----> System version of #{diff[:technology][:name]} is newer (#{diff[:system_version]} > #{diff[:hakiri_version]})"
                   else
