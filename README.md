@@ -6,7 +6,7 @@ Hakiri is a command line interface for the Hakiri platform. It allows Ruby on Ra
 
 Hakiri CLI is a Ruby gem that can be installed by
 
-~~~ sh
+~~~ bash
 gem install hakiri
 ~~~
 
@@ -24,7 +24,7 @@ This gem doesn't require you to sign up for a Hakiri account if you are using ba
 
 3. Lastly setup your authentication token (`HAKIRI_AUTH_TOKEN`) as an environmental variable in your shell:
 
-    ~~~ sh
+    ~~~ bash
     $ echo 'export HAKIRI_AUTH_TOKEN="your auth token"' >> ~/.bash_profile
     ~~~
 
@@ -38,7 +38,7 @@ This gem doesn't require you to sign up for a Hakiri account if you are using ba
 
 You can scan your system for vulnerabilities. Supply a JSON file with technologies that you are interested in and run this command.
 
-~~~ sh
+~~~ bash
 $ hakiri system:scan -s my_stack.json
 ~~~
 
