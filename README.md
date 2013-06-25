@@ -1,4 +1,4 @@
-# Hakiri
+## Secure Rails with Hakiri
 
 Hakiri is a command line interface for the Hakiri platform. It allows Ruby on Rails developers to automate version scraping of servers, databases and other technologies that they use in their stacks. It also shows CVE vulnerabilities found in their system software versions.
 
