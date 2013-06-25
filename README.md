@@ -12,41 +12,60 @@ $ gem install hakiri
 
 After it's installed, restart your command line and you should be good to go.
 
-### Test Your System in 5 Seconds
+### Test Your System in 2 Minutes
 
-### Authentication Token
+Once you have Hakiri installed, it's really easy to start using it. You can scan your Rails stack in a matter of seconds.
 
-This gem doesn't require you to sign up for a Hakiri account if you are using basic functionality. For some other things that require connection to Hakiri API you'll have to get an authentication token from Hakiri.
-
-1. First of all, [sign up](https://www.hakiriup.com/sign_up) for an account on Hakiri.
-
-2. Then go to [your account settings](https://www.hakiriup.com/account) and copy an authentication token.
-
-3. Lastly setup your authentication token (`HAKIRI_AUTH_TOKEN`) as an environmental variable in your shell:
-
-    ~~~ bash
-    $ echo 'export HAKIRI_AUTH_TOKEN="your auth token"' >> ~/.bash_profile
-    ~~~
-
-    **Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
-
-    **Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
-
-### Getting Started
-
-#### System Scan
-
-You can scan your system for vulnerabilities. Supply a JSON file with technologies that you are interested in and run this command.
+One way to do it is to run a command line wizard that will ask you about your technologies in 5 steps:
 
 ~~~ bash
-$ hakiri system:scan -s my_stack.json
+$ hakiri system:steps
 ~~~
 
-#### Step by Step
+After you are done, Hakiri will scrape versions of technologies in your stack and show you all active CVE vulnerabilities.
 
-TBD
+The wizard is a good way to get a taste of Hakiri but it's not really useful for real work. A much better setup suitable for production is a manifest file that the user can configure with technologies that are part of the stack and then run tests against it.
 
-#### Sync Stack
+Hakiri can generate a generic manifest file with the following command:
+
+~~~ bash
+$ hakiri manifest:generate
+~~~
+
+This will generate a `manifest.json` file in your current directory. It will contain all technologies supported by Hakiri. You can choose which ones you need by editing this file.
+
+Once you are done, run the following command in the directory where you've created the manifest file:
+
+~~~ bash
+$ hakiri system:scan
+~~~
+
+It will attempt to scrape versions of technologies in your current directory and then make a request to Hakiri to see if there are open CVE vulnerabilities. If any vulnerabilities are found, Hakiri will ask you whether you want to see all of them. The output will look something like this:
+
+~~~ bash
+-----> Scanning system for software versions...
+-----> Found Ruby 1.9.3.429
+-----> Found Ruby on Rails 3.2.11
+-----> Found Unicorn 4.6.3
+-----> Searching for vulnerabilities...
+-----> Found 17 vulnerabilities in Ruby on Rails 3.2.11
+Show all of them? (yes or no) yes
+
+CVE-2013-0276
+ActiveRecord in Ruby on Rails before 2.3.17, 3.1.x before 3.1.11, and 3.2.x before 3.2.12 allows remote attackers to bypass the attr_protected protection mechanism and modify protected model attributes via a crafted request.
+
+...
+~~~
+
+Simple, right? If you manifest file is in a different directory or named differently you can specify it in a parameter:
+
+~~~ bash
+$ hakiri system:scan -m ../my_stack.json
+~~~
+
+You can learn more about configuring the manifest in [Hakiri docs](https://www.hakiriup.com/docs/manifest-file).
+
+### Advanced Usage
 
 TBD
 
