@@ -7,7 +7,7 @@ Hakiri is a command line interface for the Hakiri platform. It allows Ruby on Ra
 Hakiri CLI is a Ruby gem that can be installed by
 
 ~~~ bash
-gem install hakiri
+$ gem install hakiri
 ~~~
 
 After it's installed, restart your command line and you should be good to go.
