@@ -3,57 +3,60 @@ class Hakiri::System < Hakiri::Cli
   # Walks the user through system scanning process.
   #
   def scan
-    @stack.build_from_json_file(@options.stack)
-    @stack.fetch_versions
+    if File.exist? @options.manifest
+      @stack.build_from_json_file(@options.manifest)
+      @stack.fetch_versions
 
-    # GETTING VERSIONS
-    say '-----> Scanning system for software versions...'
+      # GETTING VERSIONS
+      say '-----> Scanning system for software versions...'
 
-    if @stack.technologies.empty?
-      say '-----> No versions were found...'
-    else
-      @stack.technologies.each do |technology_slug, payload|
-        say "-----> Found #{payload[:name]} #{payload[:version]}"
-      end
-
-      # GETTING VULNERABILITIES
-      say '-----> Searching for vulnerabilities...'
-      params = ({ technologies: @stack.technologies }.to_param)
-      response = @http_client.get_issues(params)
-
-      if response[:errors]
-        response[:errors].each do |error|
-          say "!      Server Error: #{error}"
-        end
+      if @stack.technologies.empty?
+        say '-----> No versions were found...'
       else
-        authenticated = response[:meta][:authenticated]
+        @stack.technologies.each do |technology_slug, payload|
+          say "-----> Found #{payload[:name]} #{payload[:version]}"
+        end
 
-        if response[:technologies].empty?
-          say '-----> No vulnerabilities found. Keep it up!'
-        else
-          response[:technologies].each do |technology|
-            unless technology[:issues_count] == 0
-              say "-----> Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:name]} #{technology[:version]}"
-            end
+        # GETTING VULNERABILITIES
+        say '-----> Searching for vulnerabilities...'
+        params = ({ technologies: @stack.technologies }.to_param)
+        response = @http_client.get_issues(params)
+
+        if response[:errors]
+          response[:errors].each do |error|
+            say "!      Server Error: #{error}"
           end
+        else
+          authenticated = response[:meta][:authenticated]
 
-          if agree 'Show all of them? (yes or no) '
-            puts ' '
+          if response[:technologies].empty?
+            say '-----> No vulnerabilities found. Keep it up!'
+          else
             response[:technologies].each do |technology|
-              technology[:issues].each do |issue|
-                say issue[:name]
-                say issue[:description]
-                puts ' '
+              unless technology[:issues_count] == 0
+                say "-----> Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:name]} #{technology[:version]}"
               end
             end
-          end
 
-          unless authenticated
-            say '****** Signup on www.hakiriup.com and make your command line requests with an auth_token, so you can see issues that your technologies have.'
-            say '****** You will also receive notifications via email whenever new issues are found.'
+            if agree 'Show all of them? (yes or no) '
+              puts ' '
+              response[:technologies].each do |technology|
+                technology[:issues].each do |issue|
+                  say issue[:name]
+                  say issue[:description]
+                  puts ' '
+                end
+              end
+            end
+
+            unless authenticated
+              say '****** Signup on www.hakiriup.com to keep track of new vulnerabilities when they come out.'
+            end
           end
         end
       end
+    else
+      say '!      You have to create a manifest file with "hakiri manifest:generate"'
     end
   end
 
@@ -61,7 +64,7 @@ class Hakiri::System < Hakiri::Cli
   # Walks the user through the version syncing process.
   #
   def sync
-    @stack.build_from_json_file(@options.stack)
+    @stack.build_from_json_file(@options.manifest)
     @stack.fetch_versions
 
     if @http_client.auth_token
@@ -211,20 +214,20 @@ class Hakiri::System < Hakiri::Cli
             end
           end
 
-          if authenticated
-            if agree 'Show all of them? (yes or no) '
-              puts ' '
-              response[:technologies].each do |technology|
-                technology[:issues].each do |issue|
-                  say issue[:name]
-                  say issue[:description]
-                  puts ' '
-                end
+
+          if agree 'Show all of them? (yes or no) '
+            puts ' '
+            response[:technologies].each do |technology|
+              technology[:issues].each do |issue|
+                say issue[:name]
+                say issue[:description]
+                puts ' '
               end
             end
-          else
-            say '****** Signup on www.hakiriup.com and make your command line requests with an auth_token, so you can see issues that your technologies have.'
-            say '****** You will also receive notifications via email whenever new issues are found.'
+          end
+
+          unless authenticated
+            say '****** Signup on www.hakiriup.com to keep track of new vulnerabilities when they come out.'
           end
         end
       end
