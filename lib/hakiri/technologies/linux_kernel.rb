@@ -1,5 +1,5 @@
 class Hakiri::LinuxKernel < Hakiri::Technology
-  def initialize(path = '')
+  def initialize(command = '')
     super
 
     @name = 'Linux Kernel'
@@ -7,7 +7,7 @@ class Hakiri::LinuxKernel < Hakiri::Technology
 
   def version
     begin
-      output = `#{@path}uname -r  2>&1`
+      output = (@command.empty?) ? `uname -r  2>&1` : `#{@command} 2>&1`
       @default_regexp.match(output)[0]
     rescue Exception => e
       puts_error(e, output)

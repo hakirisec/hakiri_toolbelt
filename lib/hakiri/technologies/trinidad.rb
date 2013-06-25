@@ -1,5 +1,5 @@
 class Hakiri::Trinidad < Hakiri::Technology
-  def initialize(path = '')
+  def initialize(command = '')
     super
 
     @name = 'Trinidad'
@@ -7,7 +7,7 @@ class Hakiri::Trinidad < Hakiri::Technology
 
   def version
     begin
-      output = `#{@path}trinidad -v 2>&1 | awk 'NR == 2 { print ; }'`
+      output = (@command.empty?) ? `trinidad -v 2>&1 | awk 'NR == 2 { print ; }'` : `#{@command} 2>&1 | awk 'NR == 2 { print ; }'`
       puts output
       @default_regexp.match(output)[0]
     rescue Exception => e

@@ -1,13 +1,13 @@
 require 'active_support/all'
 
 class Hakiri::Stack
-  attr_accessor :technologies, :default_path
+  attr_accessor :technologies, :default_command
 
   #
   # Initializes a stack.
   #
   def initialize()
-    @default_path = ''
+    @default_command = ''
     @technologies = {}
     @errors = []
   end
@@ -24,7 +24,7 @@ class Hakiri::Stack
 
   #
   # This method analyzes user input from the Hakiri gem and sets up
-  # default paths to retrieve versions.
+  # default commands to retrieve versions.
   #
   # @param [String] server
   #   Rails server selection.
@@ -42,51 +42,51 @@ class Hakiri::Stack
   #   Is Memcached present?
   #
   def build_from_input(server, extra_server, db, redis, memcached)
-    @technologies['ruby'] = { path: @default_path }
-    @technologies['ruby-on-rails'] = { path: @default_path }
+    @technologies['ruby'] = { command: @default_command }
+    @technologies['ruby-on-rails'] = { command: @default_command }
 
     case server
       when 1
-        @technologies['unicorn'] = { path: @default_path }
+        @technologies['unicorn'] = { command: @default_command }
       when 2
-        @technologies['phusion-passenger'] = { path: @default_path }
+        @technologies['phusion-passenger'] = { command: @default_command }
       when 3
-        @technologies['thin'] = { path: @default_path }
+        @technologies['thin'] = { command: @default_command }
       when 4
-        @technologies['trinidad'] = { path: @default_path }
-        @technologies['java'] = { path: @default_path }
-        @technologies['apache-tomcat'] = { path: @default_path }
-        @technologies['jruby'] = { path: @default_path }
+        @technologies['trinidad'] = { command: @default_command }
+        @technologies['java'] = { command: @default_command }
+        @technologies['apache-tomcat'] = { command: @default_command }
+        @technologies['jruby'] = { command: @default_command }
       else
         nil
     end
 
     case extra_server
       when 1
-        @technologies['apache'] = { path: @default_path }
+        @technologies['apache'] = { command: @default_command }
       when 2
-        @technologies['nginx'] = { path: @default_path }
+        @technologies['nginx'] = { command: @default_command }
       when 3
-        @technologies['apache'] = { path: @default_path }
-        @technologies['nginx'] = { path: @default_path }
+        @technologies['apache'] = { command: @default_command }
+        @technologies['nginx'] = { command: @default_command }
       else
         nil
     end
 
     case db
       when 1
-        @technologies['mysql'] = { path: @default_path }
+        @technologies['mysql'] = { command: @default_command }
       when 2
-        @technologies['postgres'] = { path: @default_path }
+        @technologies['postgres'] = { command: @default_command }
       when 3
-        @technologies['mongodb'] = { path: @default_path }
+        @technologies['mongodb'] = { command: @default_command }
       else
         nil
     end
 
-    @technologies['redis'] = { path: @default_path } if redis
+    @technologies['redis'] = { command: @default_command } if redis
 
-    @technologies['memcached'] = { path: @default_path } if memcached
+    @technologies['memcached'] = { command: @default_command } if memcached
   end
 
   #
@@ -99,7 +99,7 @@ class Hakiri::Stack
       @technologies[technology_slug].symbolize_keys!
 
       technology_class = Hakiri.const_get(technology_slug.gsub('-', '_').camelcase)
-      technology_object = technology_class.new(value[:path])
+      technology_object = technology_class.new(value[:command])
 
       if technology_object.version
         @technologies[technology_slug][:version] = technology_object.version unless @technologies[technology_slug][:version] and @technologies[technology_slug][:version] != ''

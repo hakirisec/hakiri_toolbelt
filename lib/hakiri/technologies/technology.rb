@@ -3,9 +3,9 @@ class Hakiri::Technology
   #
   # Initializes a technology.
   #
-  def initialize(path = '')
-    @default_regexp = /\d+(\.\d+)(\.\d+)/
-    @path = path
+  def initialize(command = '')
+    @default_regexp = /\d+\.\d+\.\d+/
+    @command = command
     @name = 'Technology'
   end
 
