@@ -1,6 +1,23 @@
 # Secure Rails with Hakiri
 
-Hakiri is a command line interface (CLI) for the Hakiri platform. It allows Ruby on Rails developers to automate version scraping of servers, databases and other technologies used in their stacks. For each technology Hakiri shows CVE vulnerabilities.
+Hakiri is a command line interface (CLI) for the Hakiri platform. It allows Ruby on Rails developers to automate version scraping of servers, databases and other technologies used in their stacks. For each technology Hakiri shows CVE vulnerabilities. Here is a snippet of how it works:
+
+~~~
+$ hakiri system:scan
+-----> Scanning system for software versions...
+       Found Ruby 1.9.3.429
+       Found Ruby on Rails 3.2.11
+-----> Searching for vulnerabilities...
+       Found 17 vulnerabilities in Ruby on Rails 3.2.11
+Show all of them? (yes or no)
+
+CVE-2013-0276
+ActiveRecord in Ruby on Rails before 2.3.17, 3.1.x before 3.1.11, and 3.2.x before 3.2.12 allows remote attackers to bypass the attr_protected protection mechanism and modify protected model attributes via a crafted request.
+
+...
+~~~
+
+Wanna try it on your system?
 
 ## Installation
 
