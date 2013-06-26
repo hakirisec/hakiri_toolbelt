@@ -39,11 +39,11 @@ command 'system:sync' do |c|
   c.description = 'This command grabs your custom stack JSON file, and syncs it with your project on www.hakiriup.com.'
   c.option '--manifest STRING', String, 'Path to your manifest JSON file stack'
   c.option '--project INTEGER', Integer, 'Your project ID.'
+  c.option '--force', 'Force syncing without asking for it first.'
 
   c.action do |args, options|
     options.default manifest: './manifest.json'
     options.default project: nil
-
     cli = Hakiri::System.new(args, options)
     cli.sync
   end
