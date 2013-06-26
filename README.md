@@ -44,11 +44,11 @@ It will attempt to scrape versions of technologies in your current directory and
 
 ~~~
 -----> Scanning system for software versions...
------> Found Ruby 1.9.3.429
------> Found Ruby on Rails 3.2.11
------> Found Unicorn 4.6.3
+       Found Ruby 1.9.3.429
+       Found Ruby on Rails 3.2.11
+       Found Unicorn 4.6.3
 -----> Searching for vulnerabilities...
------> Found 17 vulnerabilities in Ruby on Rails 3.2.11
+       Found 17 vulnerabilities in Ruby on Rails 3.2.11
 Show all of them? (yes or no) yes
 
 CVE-2013-0276
