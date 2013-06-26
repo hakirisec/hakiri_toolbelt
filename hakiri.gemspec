@@ -4,8 +4,8 @@ require 'hakiri/version'
 Gem::Specification.new do |s|
   s.name          = 'hakiri'
   s.version       = Hakiri::VERSION
-  s.summary       = 'CLI for Hakiri'
-  s.description   = 'Hakiri is a CLI for www.hakiriup.com—a cloud security platform for Ruby on rails apps.'
+  s.summary       = 'Secure Rails with Hakiri'
+  s.description   = 'Hakiri is a CLI for www.hakiriup.com—a cloud security platform for Ruby on Rails apps.'
   s.authors       = ['Vasily Vasinov']
   s.email         = 'vasinov@me.com'
   s.files         = `git ls-files`.split("\n")

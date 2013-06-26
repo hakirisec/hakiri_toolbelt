@@ -50,7 +50,7 @@ class Hakiri::System < Hakiri::Cli
             end
 
             unless authenticated
-              say '****** Signup on www.hakiriup.com to keep track of new vulnerabilities when they come out.'
+              say '****** Signup on www.hakiriup.com to get notified when new vulnerabilities come out.'
             end
           end
         end
@@ -227,7 +227,7 @@ class Hakiri::System < Hakiri::Cli
           end
 
           unless authenticated
-            say '****** Signup on www.hakiriup.com to keep track of new vulnerabilities when they come out.'
+            say '****** Signup on www.hakiriup.com to get notified when new vulnerabilities come out.'
           end
         end
       end
