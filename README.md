@@ -72,6 +72,7 @@ We just went through the most basic Hakiri use case. Here are links to docs desc
 - [Learn about](https://www.hakiriup.com/docs/manifest-file) advanced manifest file options.
 - [Setup your](https://www.hakiriup.com/docs/authentication-token) authentication token.
 - [Sync your stack technologies](https://www.hakiriup.com/docs/stack-syncing) with the cloud and get notified when new vulnerabilities come out.
+- [Check out technologies](https://www.hakiriup.com/docs/technology-version-format) the lsit of supported technologies and version formats.
 
 ## Contribute
 
