@@ -3,7 +3,6 @@ module Hakiri
 end
 
 require 'terminal-table'
-require 'http'
 require 'open-uri'
 
 require 'hakiri/cli/cli'
