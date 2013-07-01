@@ -4,6 +4,7 @@ end
 
 require 'terminal-table'
 require 'open-uri'
+require 'json'
 
 require 'hakiri/cli/cli'
 require 'hakiri/cli/system'

@@ -19,7 +19,7 @@ class Hakiri::System < Hakiri::Cli
 
         # GETTING VULNERABILITIES
         say '-----> Searching for vulnerabilities...'
-        params = ({ technologies: @stack.technologies }.to_param)
+        params = ({ :technologies => @stack.technologies }.to_param)
         response = @http_client.get_issues(params)
 
         if response[:errors]
@@ -79,7 +79,7 @@ class Hakiri::System < Hakiri::Cli
         end
 
         # CHECK VERSIONS ON THE SERVER
-        params = ({ project_id: @options.project, technologies: @stack.technologies }.to_param)
+        params = ({ :project_id => @options.project, :technologies => @stack.technologies }.to_param)
         say '-----> Checking software versions on www.hakiriup.com...'
         response = @http_client.check_versions_diff(params)
 
@@ -92,7 +92,7 @@ class Hakiri::System < Hakiri::Cli
             @stack.technologies = {}
             response[:diffs].each do |diff|
               if diff[:success]
-                @stack.technologies[diff[:technology][:slug]] = { version: diff[:system_version] }
+                @stack.technologies[diff[:technology][:slug]] = { :version => diff[:system_version] }
 
                 if diff[:hakiri_version]
                   if diff[:system_version_newer]
@@ -115,7 +115,7 @@ class Hakiri::System < Hakiri::Cli
 
             if update or @options.force
               say '-----> Syncing versions with www.hakiriup.com...'
-              params = ({ project_id: @options.project, technologies: @stack.technologies }.to_param)
+              params = ({ :project_id => @options.project, :technologies => @stack.technologies }.to_param)
               response = @http_client.sync_project_versions(response[:project][:id], params)
 
               if response[:errors]
@@ -193,7 +193,7 @@ class Hakiri::System < Hakiri::Cli
       end
 
       say '-----> Searching for vulnerabilities...'
-      params = ({ technologies: @stack.technologies }.to_param)
+      params = ({ :technologies => @stack.technologies }.to_param)
       response = @http_client.get_issues(params)
 
       if response[:errors]
@@ -209,7 +209,6 @@ class Hakiri::System < Hakiri::Cli
           response[:technologies].each do |technology|
             unless technology[:issues_count] == 0
               say "!      Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:name]} #{technology[:version]}"
-              puts ' '
             end
           end
 

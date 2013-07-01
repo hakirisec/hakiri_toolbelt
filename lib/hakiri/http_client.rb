@@ -27,9 +27,9 @@ class Hakiri::HttpClient
     RestClient.get "#{@api_url}/issues.json?auth_token=#{@auth_token}&#{params}" do |response, request, result, &block|
       case response.code
         when 200
-          JSON.parse(response.to_str, symbolize_names: true)
+          JSON.parse(response.to_str, :symbolize_names => true)
         else
-          { errors: [response.code] }
+          { :errors => [response.code] }
       end
     end
   end
@@ -47,9 +47,9 @@ class Hakiri::HttpClient
     RestClient.get "#{@api_url}/versions/diffs.json?auth_token=#{@auth_token}&#{params}" do |response, request, result, &block|
       case response.code
         when 200
-          JSON.parse(response.to_str, symbolize_names: true)
+          JSON.parse(response.to_str, :symbolize_names => true)
         else
-          { errors: [response.code] }
+          { :errors => [response.code] }
       end
     end
   end
@@ -67,9 +67,9 @@ class Hakiri::HttpClient
     RestClient.put "#{@api_url}/projects/#{project_id}.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
       case response.code
         when 200
-          JSON.parse(response.to_str, symbolize_names: true)
+          JSON.parse(response.to_str, :symbolize_names => true)
         else
-          { errors: [response.code] }
+          { :errors => [response.code] }
       end
     end
   end

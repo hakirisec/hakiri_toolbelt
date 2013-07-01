@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'active_support'
   s.add_dependency 'i18n'
   s.add_dependency 'rest-client'
+  s.add_dependency 'json_pure'
 end

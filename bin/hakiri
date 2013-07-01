@@ -26,7 +26,7 @@ command 'system:scan' do |c|
   c.option '--manifest STRING', String, 'Path to your manifest JSON file'
 
   c.action do |args, options|
-    options.default manifest: './manifest.json'
+    options.default :manifest => './manifest.json'
 
     cli = Hakiri::System.new(args, options)
     cli.scan
@@ -42,8 +42,8 @@ command 'system:sync' do |c|
   c.option '--force', 'Force syncing without asking for it first.'
 
   c.action do |args, options|
-    options.default manifest: './manifest.json'
-    options.default project: nil
+    options.default :manifest => './manifest.json'
+    options.default :project => nil
     cli = Hakiri::System.new(args, options)
     cli.sync
   end

@@ -42,51 +42,51 @@ class Hakiri::Stack
   #   Is Memcached present?
   #
   def build_from_input(server, extra_server, db, redis, memcached)
-    @technologies['ruby'] = { command: @default_command }
-    @technologies['ruby-on-rails'] = { command: @default_command }
+    @technologies['ruby'] = { :command => @default_command }
+    @technologies['ruby-on-rails'] = { :command => @default_command }
 
     case server
       when 1
-        @technologies['unicorn'] = { command: @default_command }
+        @technologies['unicorn'] = { :command => @default_command }
       when 2
-        @technologies['phusion-passenger'] = { command: @default_command }
+        @technologies['phusion-passenger'] = { :command => @default_command }
       when 3
-        @technologies['thin'] = { command: @default_command }
+        @technologies['thin'] = { :command => @default_command }
       when 4
-        @technologies['trinidad'] = { command: @default_command }
-        @technologies['java'] = { command: @default_command }
-        @technologies['apache-tomcat'] = { command: @default_command }
-        @technologies['jruby'] = { command: @default_command }
+        @technologies['trinidad'] = { :command => @default_command }
+        @technologies['java'] = { :command => @default_command }
+        @technologies['apache-tomcat'] = { :command => @default_command }
+        @technologies['jruby'] = { :command => @default_command }
       else
         nil
     end
 
     case extra_server
       when 1
-        @technologies['apache'] = { command: @default_command }
+        @technologies['apache'] = { :command => @default_command }
       when 2
-        @technologies['nginx'] = { command: @default_command }
+        @technologies['nginx'] = { :command => @default_command }
       when 3
-        @technologies['apache'] = { command: @default_command }
-        @technologies['nginx'] = { command: @default_command }
+        @technologies['apache'] = { :command => @default_command }
+        @technologies['nginx'] = { :command => @default_command }
       else
         nil
     end
 
     case db
       when 1
-        @technologies['mysql'] = { command: @default_command }
+        @technologies['mysql'] = { :command => @default_command }
       when 2
-        @technologies['postgres'] = { command: @default_command }
+        @technologies['postgres'] = { :command => @default_command }
       when 3
-        @technologies['mongodb'] = { command: @default_command }
+        @technologies['mongodb'] = { :command => @default_command }
       else
         nil
     end
 
-    @technologies['redis'] = { command: @default_command } if redis
+    @technologies['redis'] = { :command => @default_command } if redis
 
-    @technologies['memcached'] = { command: @default_command } if memcached
+    @technologies['memcached'] = { :command => @default_command } if memcached
   end
 
   #
