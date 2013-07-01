@@ -21,15 +21,13 @@ Wanna try it on your system?
 
 ## Installation
 
-Important: right now Hakiri only supports Ruby 1.9 and up. I realized that it was not the best desicion to eliminate Ruby 1.8. The fix should be coming out soon.
-
 Hakiri CLI is a Ruby gem that can be installed by
 
 ~~~
 $ gem install hakiri
 ~~~
 
-After it's installed, restart your command line and you should be good to go.
+After it's installed, restart your command line and you should be good to go. Hakiri supports Ruby 1.8.7, 1.9.x and 2.0.x.
 
 ## Test Your System in 2 Minutes
 
