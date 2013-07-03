@@ -3,6 +3,7 @@ PATH
   specs:
     hakiri (0.3.2)
       active_support
+      bundler
       commander
       i18n
       json_pure

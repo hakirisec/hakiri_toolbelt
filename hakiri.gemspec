@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
   s.homepage      = 'https://www.hakiriup.com'
   s.license       = 'MIT'
 
+  s.add_dependency 'bundler'
   s.add_dependency 'rake'
   s.add_dependency 'commander'
   s.add_dependency 'terminal-table'

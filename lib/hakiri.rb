@@ -5,10 +5,13 @@ end
 require 'terminal-table'
 require 'open-uri'
 require 'json'
+require 'bundler'
+require 'bundler/lockfile_parser'
 
 require 'hakiri/cli/cli'
 require 'hakiri/cli/system'
 require 'hakiri/cli/manifest'
+require 'hakiri/cli/gemfile'
 
 require 'hakiri/stack'
 require 'hakiri/version'

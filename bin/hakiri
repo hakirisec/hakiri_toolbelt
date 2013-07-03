@@ -59,3 +59,17 @@ command 'system:steps' do |c|
     cli.steps
   end
 end
+
+command 'gemfile:scan' do |c|
+  c.syntax = 'hakiri gemfile:scan [options]'
+  c.summary = 'Check if Gemfile.lock has any vulnerabilities.'
+  c.description = 'This command grabs your Gemfile.lock file and shows vulnerabilities in it.'
+  c.option '--gemfile STRING', String, 'Path to your Gemfile.lock'
+
+  c.action do |args, options|
+    options.default :gemfile => './Gemfile.lock'
+
+    cli = Hakiri::Gemfile.new(args, options)
+    cli.scan
+  end
+end
