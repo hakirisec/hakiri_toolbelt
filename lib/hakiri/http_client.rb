@@ -44,7 +44,7 @@ class Hakiri::HttpClient
   #   Returns a hash of differences between technologies.
   #
   def check_versions_diff(params)
-    RestClient.get "#{@api_url}/versions/diffs.json?auth_token=#{@auth_token}&#{params}" do |response, request, result, &block|
+    RestClient.get("#{@api_url}/versions/diffs.json?auth_token=#{@auth_token}&#{params[:project_id]}", params: params) do |response, request, result, &block|
       case response.code
         when 200
           JSON.parse(response.to_str, :symbolize_names => true)

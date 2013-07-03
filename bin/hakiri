@@ -35,7 +35,7 @@ end
 
 command 'system:sync' do |c|
   c.syntax = 'hakiri system:sync [options]'
-  c.summary = 'Sync your system\'s software versions with the server.'
+  c.summary = 'Sync your system\'s software versions with the cloud.'
   c.description = 'This command grabs your custom stack JSON file, and syncs it with your project on www.hakiriup.com.'
   c.option '--manifest STRING', String, 'Path to your manifest JSON file stack'
   c.option '--project INTEGER', Integer, 'Your project ID.'
@@ -71,5 +71,21 @@ command 'gemfile:scan' do |c|
 
     cli = Hakiri::Gemfile.new(args, options)
     cli.scan
+  end
+end
+
+command 'gemfile:sync' do |c|
+  c.syntax = 'hakiri gemfile:sync [options]'
+  c.summary = 'Sync your system\'s Gemfile.lock gem versions with the cloud.'
+  c.description = 'This command grabs your Gemfile.lock file, and syncs it with your project on www.hakiriup.com.'
+  c.option '--gemfile STRING', String, 'Path to your Gemfile.lock'
+  c.option '--project INTEGER', Integer, 'Your project ID.'
+  c.option '--force', 'Force syncing without asking for it first.'
+
+  c.action do |args, options|
+    options.default :gemfile => './Gemfile.lock'
+    options.default :project => nil
+    cli = Hakiri::Gemfile.new(args, options)
+    cli.sync
   end
 end
