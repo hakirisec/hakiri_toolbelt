@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hakiri (0.3.1)
+    hakiri (0.3.2)
       active_support
       commander
       i18n
