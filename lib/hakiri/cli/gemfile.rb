@@ -73,7 +73,7 @@ class Hakiri::Gemfile < Hakiri::Cli
         end
 
         # CHECK VERSIONS ON THE SERVER
-        params = ({ :project_id => @options.project, :technologies => @stack.technologies }.to_param)
+        params = { :project_id => @options.project, :technologies => @stack.technologies }
         say '-----> Checking software versions on www.hakiriup.com...'
         response = @http_client.check_versions_diff(params)
 
@@ -95,7 +95,7 @@ class Hakiri::Gemfile < Hakiri::Cli
                     say "       System version of #{diff[:technology][:name]} is older (#{diff[:system_version]} < #{diff[:hakiri_version]})"
                   end
                 else
-                  say "       New technology detected: #{diff[:technology][:name]} #{diff[:system_version]}"
+                  say "       New gem detected: #{diff[:technology][:name]} #{diff[:system_version]}"
                 end
               else
                 say "!      Error in #{diff[:technology][:name]}: #{diff[:errors][:value][0]}"

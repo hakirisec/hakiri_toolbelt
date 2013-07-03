@@ -49,7 +49,7 @@ class Hakiri::Stack
       end
 
       lockfile.specs.each do |gem|
-        @technologies[gem.name] = { name: gem.name, version: gem.version.to_s }
+        @technologies[gem.name] = { name: gem.name, version: gem.version.to_s, type: 'gem' }
       end
     rescue Exception => e
       say "!      Couldn\'t parse your Gemfile.lock: #{e}"
