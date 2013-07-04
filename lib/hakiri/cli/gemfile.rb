@@ -60,9 +60,9 @@ class Hakiri::Gemfile < Hakiri::Cli
   # Walks the user through Gemfile syncing process.
   #
   def sync
-    @stack.build_from_gemfile(@options.gemfile)
-
     if @http_client.auth_token
+      @stack.build_from_gemfile(@options.gemfile)
+
       # GETTING VERSIONS
 
       if @stack.technologies.empty?

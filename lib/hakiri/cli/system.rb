@@ -64,10 +64,10 @@ class Hakiri::System < Hakiri::Cli
   # Walks the user through the version syncing process.
   #
   def sync
-    @stack.build_from_json_file(@options.manifest)
-    @stack.fetch_versions
-
     if @http_client.auth_token
+      @stack.build_from_json_file(@options.manifest)
+      @stack.fetch_versions
+
       # GETTING VERSIONS
       say '-----> Scanning system for software versions...'
 
