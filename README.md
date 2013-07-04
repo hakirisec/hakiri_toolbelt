@@ -93,7 +93,7 @@ $ hakiri gemfile:scan
 To scan a specific `Gemfile.lock` add the `-m` parameter at the end:
 
 ~~~
-$ hakiri gemfile:scan -m ../Gemfile.lock
+$ hakiri gemfile:scan -g ../Gemfile.lock
 ~~~
 
 This will scan your `Gemfile.lock` and check with the server whether it has any vulnerable gems. It only checks gems that are [supported by Hakiri](https://www.hakiriup.com/docs/manifest-file).
