@@ -1,6 +1,6 @@
 # Secure Rails with Hakiri
 
-Hakiri is a command line interface (CLI) for the Hakiri platform. It allows Ruby on Rails developers to automate version scraping of servers, databases and other technologies used in their stacks. For each technology Hakiri shows CVE vulnerabilities. Here is a snippet of how it works:
+Hakiri is a command line interface (CLI) for the Hakiri platform. It allows Ruby on Rails developers to automate version scraping of Ruby gems, servers, databases and other technologies used in their stacks. For each technology Hakiri shows CVE vulnerabilities. Here is a snippet of how it works:
 
 ~~~
 $ hakiri system:scan
@@ -82,14 +82,32 @@ $ hakiri system:scan -m ../my_stack.json
 
 You can learn more about configuring the manifest in [Hakiri docs](https://www.hakiriup.com/docs/manifest-file).
 
+## Test Your Gemfile
+
+Hakiri supports vulnerability detection for a collection of gems listed in [the docs](https://www.hakiriup.com/docs/supported-gems). To scan a `Gemfile.lock` for vulnerabilities in the current directory do the following:
+
+~~~
+$ hakiri gemfile:scan
+~~~
+
+To scan a specific `Gemfile.lock` add the `-m` parameter at the end:
+
+~~~
+$ hakiri gemfile:scan -m ../Gemfile.lock
+~~~
+
+This will scan your `Gemfile.lock` and check with the server whether it has any vulnerable gems. It only checks gems that are [supported by Hakiri]((https://www.hakiriup.com/docs/manifest-file)).
+
+You can also [sync your gems]((https://www.hakiriup.com/docs/syncing-with-the-cloud)) with the cloud and get notified when new vulnerabilities come out.
+
 ## Advanced Usage
 
 We just went through the most basic Hakiri use case. Here are links to docs describing how to do more:
 
 - [Learn about](https://www.hakiriup.com/docs/manifest-file) advanced manifest file options.
 - [Setup your](https://www.hakiriup.com/docs/authentication-token) authentication token.
-- [Sync your stack technologies](https://www.hakiriup.com/docs/stack-syncing) with the cloud and get notified when new vulnerabilities come out.
-- [Check out technologies](https://www.hakiriup.com/docs/technologies-version-formats) the lsit of supported technologies and version formats.
+- [Sync your technologies and gems](https://www.hakiriup.com/docs/syncing-with-the-cloud) with the cloud and get notified when new vulnerabilities come out.
+- [Check out technologies](https://www.hakiriup.com/docs/technologies-version-formats) the list of supported technologies and version formats.
 
 ## Contribute
 
