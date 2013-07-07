@@ -1,3 +1,7 @@
-require "cane/rake_task"
+begin
+  require "cane/rake_task"
 
-Cane::RakeTask.new
+  Cane::RakeTask.new
+rescue LoadError
+  warn "unable to load 'cane'"
+end

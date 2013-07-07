@@ -45,4 +45,4 @@ DEPENDENCIES
   cane (~> 2.6.0)
   hakiri!
   minitest (~> 5.0.0)
-  simplecov (~> 0.8.0.pre)
+  simplecov (>= 0.8.0.pre)
