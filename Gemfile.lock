@@ -17,6 +17,8 @@ GEM
     active_support (3.0.0)
       activesupport (= 3.0.0)
     activesupport (3.0.0)
+    cane (2.6.0)
+      parallel
     commander (4.1.3)
       highline (~> 1.6.11)
     highline (1.6.19)
@@ -25,6 +27,7 @@ GEM
     mime-types (1.23)
     minitest (5.0.6)
     multi_json (1.7.7)
+    parallel (0.7.1)
     rake (10.1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
@@ -39,6 +42,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  cane (~> 2.6.0)
   hakiri!
   minitest (~> 5.0.0)
   simplecov (~> 0.8.0.pre)

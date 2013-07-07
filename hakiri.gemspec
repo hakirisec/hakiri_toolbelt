@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rest-client'
   s.add_dependency 'json_pure'
 
+  s.add_development_dependency 'cane', '~> 2.6.0'
   s.add_development_dependency 'minitest', '~> 5.0.0'
   s.add_development_dependency 'simplecov', '~> 0.8.0.pre'
 end
