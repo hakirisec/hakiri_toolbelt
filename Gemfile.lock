@@ -23,9 +23,15 @@ GEM
     i18n (0.6.4)
     json_pure (1.8.0)
     mime-types (1.23)
+    minitest (5.0.6)
+    multi_json (1.7.7)
     rake (10.1.0)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    simplecov (0.8.0.pre)
+      multi_json
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     terminal-table (1.4.5)
 
 PLATFORMS
@@ -34,3 +40,5 @@ PLATFORMS
 
 DEPENDENCIES
   hakiri!
+  minitest (~> 5.0.0)
+  simplecov (~> 0.8.0.pre)

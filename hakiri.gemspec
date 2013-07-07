@@ -22,4 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'i18n'
   s.add_dependency 'rest-client'
   s.add_dependency 'json_pure'
+
+  s.add_development_dependency 'minitest', '~> 5.0.0'
+  s.add_development_dependency 'simplecov', '~> 0.8.0.pre'
 end
