@@ -90,7 +90,7 @@ Hakiri supports vulnerability detection for a collection of gems listed in [the 
 $ hakiri gemfile:scan
 ~~~
 
-To scan a specific `Gemfile.lock` add the `-m` parameter at the end:
+To scan a specific `Gemfile.lock` add the `-g` parameter at the end:
 
 ~~~
 $ hakiri gemfile:scan -g ../Gemfile.lock
