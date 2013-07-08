@@ -17,7 +17,7 @@ require 'hakiri/stack'
 require 'hakiri/version'
 require 'hakiri/http_client'
 
-require 'hakiri/technologies/technology'
+require 'hakiri/technology'
 require 'hakiri/technologies/apache'
 require 'hakiri/technologies/apache_tomcat'
 require 'hakiri/technologies/java'

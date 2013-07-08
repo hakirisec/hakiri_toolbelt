@@ -16,4 +16,3 @@ capybara-*.html
 **.orig
 *.gem
 /manifest.json
-.ruby-version
