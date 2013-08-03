@@ -79,9 +79,9 @@ class Hakiri::System < Hakiri::Cli
         end
 
         # CHECK VERSIONS ON THE SERVER
-        params = { :project_id => @options.project, :technologies => @stack.technologies }
+        params = { :technologies => @stack.technologies }
         say '-----> Checking software versions on www.hakiriup.com...'
-        response = @http_client.check_versions_diff(params)
+        response = @http_client.check_versions_diff(@options.project, params)
 
         if response[:errors]
           response[:errors].each do |error|
