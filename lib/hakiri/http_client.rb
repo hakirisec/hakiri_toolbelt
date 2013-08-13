@@ -24,7 +24,7 @@ class Hakiri::HttpClient
     # { |response, request, result, &block|
     #  JSON.parse(.to_str, symbolize_names: true)
     # "!      Server Error: #{response.code}"
-    RestClient.post "#{@api_url}/issues.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
+    RestClient.post "#{@api_url}/issues/scan.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
       case response.code
         when 200
           JSON.parse(response.to_str, :symbolize_names => true)
@@ -43,8 +43,8 @@ class Hakiri::HttpClient
   # @return [Hash]
   #   Returns a hash of differences between technologies.
   #
-  def check_versions_diff(project_id, params)
-    RestClient.post "#{@api_url}/projects/#{project_id}/versions/diffs.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
+  def check_versions_diff(stack_id, params)
+    RestClient.post "#{@api_url}/stacks/#{stack_id}/versions/diffs.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
       case response.code
         when 200
           JSON.parse(response.to_str, :symbolize_names => true)
@@ -63,8 +63,8 @@ class Hakiri::HttpClient
   # @return [Hash]
   #   Returns a hash of updated versions.
   #
-  def sync_project_versions(project_id, params)
-    RestClient.put "#{@api_url}/projects/#{project_id}.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
+  def sync_stack_versions(stack_id, params)
+    RestClient.put "#{@api_url}/stacks/#{stack_id}.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
       case response.code
         when 200
           JSON.parse(response.to_str, :symbolize_names => true)

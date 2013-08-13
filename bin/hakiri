@@ -38,12 +38,13 @@ command 'system:sync' do |c|
   c.summary = 'Sync your system\'s software versions with the cloud.'
   c.description = 'This command grabs your custom stack JSON file, and syncs it with your project on www.hakiriup.com.'
   c.option '--manifest STRING', String, 'Path to your manifest JSON file stack'
-  c.option '--project INTEGER', Integer, 'Your project ID.'
+  c.option '--stack INTEGER', Integer, 'Your stack ID.'
   c.option '--force', 'Force syncing without asking for it first.'
 
   c.action do |args, options|
     options.default :manifest => './manifest.json'
-    options.default :project => nil
+    options.default :stack_id => nil
+
     cli = Hakiri::System.new(args, options)
     cli.sync
   end
@@ -79,12 +80,13 @@ command 'gemfile:sync' do |c|
   c.summary = 'Sync your system\'s Gemfile.lock gem versions with the cloud.'
   c.description = 'This command grabs your Gemfile.lock file, and syncs it with your project on www.hakiriup.com.'
   c.option '--gemfile STRING', String, 'Path to your Gemfile.lock'
-  c.option '--project INTEGER', Integer, 'Your project ID.'
+  c.option '--stack INTEGER', Integer, 'Your staco ID.'
   c.option '--force', 'Force syncing without asking for it first.'
 
   c.action do |args, options|
     options.default :gemfile => './Gemfile.lock'
-    options.default :project => nil
+    options.default :stack_id => nil
+
     cli = Hakiri::Gemfile.new(args, options)
     cli.sync
   end
