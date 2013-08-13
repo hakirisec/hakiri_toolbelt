@@ -64,7 +64,7 @@ class Hakiri::HttpClient
   #   Returns a hash of updated versions.
   #
   def sync_stack_versions(stack_id, params)
-    RestClient.put "#{@api_url}/stacks/#{stack_id}/versions.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
+    RestClient.put "#{@api_url}/stacks/#{stack_id}/versions/update_all.json?auth_token=#{@auth_token}", params do |response, request, result, &block|
       case response.code
         when 200
           JSON.parse(response.to_str, :symbolize_names => true)

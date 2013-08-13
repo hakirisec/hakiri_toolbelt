@@ -110,7 +110,7 @@ class Hakiri::Gemfile < Hakiri::Cli
             if update or @options.force
               say '-----> Syncing versions with www.hakiriup.com...'
               params = ({ :stack => @options.stack, :technologies => @stack.technologies }.to_param)
-              response = @http_client.sync_stack_versions(response[:stack][:id], params)
+              response = @http_client.sync_stack_versions(response[:project][:stack][:id], params)
 
               if response[:errors]
                 response[:errors].each do |error|
