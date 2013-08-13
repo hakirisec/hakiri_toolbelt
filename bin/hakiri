@@ -43,7 +43,7 @@ command 'system:sync' do |c|
 
   c.action do |args, options|
     options.default :manifest => './manifest.json'
-    options.default :stack_id => nil
+    options.default :stack => nil
 
     cli = Hakiri::System.new(args, options)
     cli.sync
@@ -85,7 +85,7 @@ command 'gemfile:sync' do |c|
 
   c.action do |args, options|
     options.default :gemfile => './Gemfile.lock'
-    options.default :stack_id => nil
+    options.default :stack => nil
 
     cli = Hakiri::Gemfile.new(args, options)
     cli.sync
