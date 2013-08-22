@@ -24,7 +24,14 @@ class Hakiri::Code < Hakiri::Cli
           if agree 'Show all of them? (yes or no) '
             puts ' '
             response[:warnings].each do |warning|
-              say "#{warning[:warning_type]}: #{warning[:message]}"
+              say warning[:warning_type]
+              say warning[:message]
+
+              if warning[:line]
+                say "| Detected in #{warning[:file]} on line #{warning[:line]}"
+              else
+                say "| Detected in #{warning[:file]}"
+              end
               puts ' '
             end
           end
