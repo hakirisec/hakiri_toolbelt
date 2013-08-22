@@ -10,6 +10,7 @@ require 'bundler/lockfile_parser'
 
 require 'hakiri/cli/cli'
 require 'hakiri/cli/system'
+require 'hakiri/cli/code'
 require 'hakiri/cli/manifest'
 require 'hakiri/cli/gemfile'
 

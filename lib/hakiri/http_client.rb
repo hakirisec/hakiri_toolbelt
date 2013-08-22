@@ -36,6 +36,9 @@ class Hakiri::HttpClient
   #
   # Checks system and server version differences.
   #
+  # @param [Integer] stack_id
+  #   Stack ID.
+  #
   # @param [String] params
   #   Hash of technologies with versions converted to a string.
   #
@@ -58,6 +61,9 @@ class Hakiri::HttpClient
   #
   # Syncs system and server versions.
   #
+  # @param [Integer] stack_id
+  #   Stack ID.
+  #
   # @param [String] params
   #   Hash of technologies with versions converted to a string.
   #
@@ -68,6 +74,26 @@ class Hakiri::HttpClient
     params[:auth_token] = @auth_token
 
     RestClient.put "#{@api_url}/stacks/#{stack_id}/versions/update_all.json", params do |response, request, result, &block|
+      case response.code
+        when 200
+          JSON.parse(response.to_str, :symbolize_names => true)
+        else
+          { :errors => [response.code] }
+      end
+    end
+  end
+
+  #
+  # Gets latest build data.
+  #
+  # @param [Integer] stack_id
+  #   Stack ID.
+  #
+  # @return [Hash]
+  #   Returns a hash with build fields, repository fields and an array of warnings.
+  #
+  def code_report(stack_id)
+    RestClient.get "#{@api_url}/stacks/#{stack_id}/builds/last.json?auth_token=#{@auth_token}" do |response, request, result, &block|
       case response.code
         when 200
           JSON.parse(response.to_str, :symbolize_names => true)
