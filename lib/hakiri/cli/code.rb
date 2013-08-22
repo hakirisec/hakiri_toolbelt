@@ -19,7 +19,7 @@ class Hakiri::Code < Hakiri::Cli
         if response[:warnings_count] == 0
           say '       No warnings were found in your code. Keep it up!'
         else
-          say "!      #{response[:warnings_count]} warnings were found in your code."
+          say "!      #{response[:warnings_count]} warnings were found in the code"
 
           if agree 'Show all of them? (yes or no) '
             puts ' '
