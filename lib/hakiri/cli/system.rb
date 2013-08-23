@@ -19,7 +19,7 @@ class Hakiri::System < Hakiri::Cli
 
         # GETTING VULNERABILITIES
         say '-----> Searching for vulnerabilities...'
-        params = ({ :technologies => @stack.technologies }.to_param)
+        params = { :technologies => @stack.technologies }
         response = @http_client.get_issues(params)
 
         if response[:errors]
@@ -115,7 +115,7 @@ class Hakiri::System < Hakiri::Cli
 
             if update or @options.force
               say '-----> Syncing versions with www.hakiriup.com...'
-              params = ({ :stack => @options.stack, :technologies => @stack.technologies }.to_param)
+              params = { :stack => @options.stack, :technologies => @stack.technologies }
               response = @http_client.sync_stack_versions(response[:project][:stack][:id], params)
 
               if response[:errors]
@@ -193,7 +193,7 @@ class Hakiri::System < Hakiri::Cli
       end
 
       say '-----> Searching for vulnerabilities...'
-      params = ({ :technologies => @stack.technologies }.to_param)
+      params = { :technologies => @stack.technologies }
       response = @http_client.get_issues(params)
 
       if response[:errors]
