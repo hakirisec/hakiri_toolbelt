@@ -39,7 +39,7 @@ class Hakiri::Gemfile < Hakiri::Cli
               response[:technologies].each do |technology|
                 technology[:issues].each do |issue|
                   say issue[:name]
-                  say issue[:description]
+                  puts issue[:description]
                   puts ' '
                 end
               end
