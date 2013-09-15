@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    hakiri (0.4.0)
-      active_support
+    hakiri (0.5.2)
+      activesupport
       bundler
       commander
       i18n
@@ -14,17 +14,17 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    active_support (3.0.0)
-      activesupport (= 3.0.0)
-    activesupport (3.0.0)
+    activesupport (3.2.14)
+      i18n (~> 0.6, >= 0.6.4)
+      multi_json (~> 1.0)
     cane (2.6.0)
       parallel
-    commander (4.1.3)
+    commander (4.1.5)
       highline (~> 1.6.11)
     highline (1.6.19)
-    i18n (0.6.4)
+    i18n (0.6.5)
     json_pure (1.8.0)
-    mime-types (1.23)
+    mime-types (1.25)
     minitest (5.0.6)
     multi_json (1.7.7)
     parallel (0.7.1)
