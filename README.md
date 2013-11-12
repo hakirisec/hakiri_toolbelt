@@ -1,6 +1,6 @@
 # Secure Rails with Hakiri
 
-Hakiri is a command line interface (CLI) for the Hakiri platform. It allows Ruby on Rails developers to automate version scraping of Ruby gems, servers, databases and other technologies used in their stacks. For each technology Hakiri shows CVE vulnerabilities. Here is a snippet of how it works:
+Hakiri Toolbelt is a command line interface for the Hakiri platform. It allows Ruby on Rails developers to automate version scraping of Ruby gems, servers, databases and other technologies used in their stacks. For each technology Hakiri shows CVE vulnerabilities. Here is a snippet of how it works:
 
 ~~~
 $ hakiri system:scan
@@ -21,7 +21,7 @@ Wanna try it on your system?
 
 ## Installation
 
-Hakiri CLI is a Ruby gem that can be installed by
+Hakiri Toolbelt is a Ruby gem that can be installed by
 
 ~~~
 $ gem install hakiri
@@ -31,7 +31,7 @@ After it's installed, restart your command line and you should be good to go. Ha
 
 ## Test Your System in 2 Minutes
 
-Once you have Hakiri CLI installed, it's really easy to start using it. You can scan your Rails stack in a matter of seconds.
+Once you have Hakiri Toolbelt installed, it's really easy to start using it. You can scan your Rails stack in a matter of seconds.
 
 One way to do so is to run a command line wizard that will ask you about your technologies in 5 steps:
 
@@ -39,11 +39,11 @@ One way to do so is to run a command line wizard that will ask you about your te
 $ hakiri system:steps
 ~~~
 
-After you are done, Hakiri CLI will scrape versions of technologies in your stack and show you all active CVE vulnerabilities.
+After you are done, Hakiri Toolbelt will scrape versions of technologies in your stack and show you all active CVE vulnerabilities.
 
 The wizard is a good way to get a taste of Hakiri but it's not really useful for real work. A much better setup suitable for production is a manifest file that the user can configure with technologies that are part of the stack and then run tests against it.
 
-Hakiri CLI can generate a generic manifest file with the following command:
+Hakiri Toolbelt can generate a generic manifest file with the following command:
 
 ~~~
 $ hakiri manifest:generate
@@ -57,7 +57,7 @@ Once you are done, run the following command in the directory where you've creat
 $ hakiri system:scan
 ~~~
 
-It will attempt to scrape versions of technologies in your current directory and then make a request to the Hakiri API to see if there are open CVE vulnerabilities. If any vulnerabilities are found, Hakiri CLI will ask you whether you want to see all of them. The output will look something like this:
+It will attempt to scrape versions of technologies in your current directory and then make a request to the Hakiri API to see if there are open CVE vulnerabilities. If any vulnerabilities are found, Hakiri Toolbelt will ask you whether you want to see all of them. The output will look something like this:
 
 ~~~
 -----> Scanning system for software versions...
