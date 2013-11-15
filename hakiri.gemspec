@@ -5,13 +5,13 @@ Gem::Specification.new do |s|
   s.name          = 'hakiri'
   s.version       = Hakiri::VERSION
   s.summary       = 'Secure Rails with Hakiri'
-  s.description   = 'Hakiri is a CLI for www.hakiriup.com—a cloud security platform for Ruby on Rails apps.'
+  s.description   = 'Hakiri is a CLI for hakiri.io—a cloud security platform for Ruby on Rails apps.'
   s.authors       = ['Vasily Vasinov']
   s.email         = 'vasinov@me.com'
   s.files         = `git ls-files`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ['lib']
-  s.homepage      = 'https://www.hakiriup.com'
+  s.homepage      = 'https://hakiri.io'
   s.license       = 'MIT'
 
   s.add_dependency 'bundler'

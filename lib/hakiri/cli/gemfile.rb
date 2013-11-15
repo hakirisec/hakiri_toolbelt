@@ -46,7 +46,7 @@ class Hakiri::Gemfile < Hakiri::Cli
             end
 
             unless authenticated
-              say '****** Signup on www.hakiriup.com to get notified when new vulnerabilities come out.'
+              say '****** Signup on hakiri.io to get notified when new vulnerabilities come out.'
             end
           end
         end
@@ -74,7 +74,7 @@ class Hakiri::Gemfile < Hakiri::Cli
 
         # CHECK VERSIONS ON THE SERVER
         params = { :technologies => @stack.technologies }
-        say '-----> Checking software versions on www.hakiriup.com...'
+        say '-----> Checking software versions on hakiri.io...'
         response = @http_client.check_versions_diff(@options.stack, params)
 
         if response[:errors]
@@ -108,7 +108,7 @@ class Hakiri::Gemfile < Hakiri::Cli
             end
 
             if update or @options.force
-              say '-----> Syncing versions with www.hakiriup.com...'
+              say '-----> Syncing versions with hakiri.io...'
               params = { :stack => @options.stack, :technologies => @stack.technologies }
               response = @http_client.sync_stack_versions(response[:project][:stack][:id], params)
 

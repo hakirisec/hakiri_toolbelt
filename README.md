@@ -80,11 +80,11 @@ Simple, right? If you manifest file is in a different directory or named differe
 $ hakiri system:scan -m ../my_stack.json
 ~~~
 
-You can learn more about configuring the manifest in [Hakiri docs](https://www.hakiriup.com/docs/manifest-file).
+You can learn more about configuring the manifest in [Hakiri docs](https://hakiri.io/docs/manifest-file).
 
 ## Test Your Gemfile
 
-Hakiri supports vulnerability detection for a collection of gems listed in [the docs](https://www.hakiriup.com/docs/supported-gems). To scan a `Gemfile.lock` for vulnerabilities in the current directory do the following:
+Hakiri supports vulnerability detection for a collection of gems listed in [the docs](https://hakiri.io/docs/supported-gems). To scan a `Gemfile.lock` for vulnerabilities in the current directory do the following:
 
 ~~~
 $ hakiri gemfile:scan
@@ -96,18 +96,18 @@ To scan a specific `Gemfile.lock` add the `-g` parameter at the end:
 $ hakiri gemfile:scan -g ../Gemfile.lock
 ~~~
 
-This will scan your `Gemfile.lock` and check with the server whether it has any vulnerable gems. It only checks gems that are [supported by Hakiri](https://www.hakiriup.com/docs/manifest-file).
+This will scan your `Gemfile.lock` and check with the server whether it has any vulnerable gems. It only checks gems that are [supported by Hakiri](https://hakiri.io/docs/manifest-file).
 
-You can also [sync your gems](https://www.hakiriup.com/docs/syncing-with-the-cloud) with the cloud and get notified when new vulnerabilities come out.
+You can also [sync your gems](https://hakiri.io/docs/syncing-with-the-cloud) with the cloud and get notified when new vulnerabilities come out.
 
 ## Advanced Usage
 
 We just went through the most basic Hakiri use case. Here are links to docs describing how to do more:
 
-- [Learn about](https://www.hakiriup.com/docs/manifest-file) advanced manifest file options.
-- [Setup your](https://www.hakiriup.com/docs/authentication-token) authentication token.
-- [Sync your technologies and gems](https://www.hakiriup.com/docs/syncing-with-the-cloud) with the cloud and get notified when new vulnerabilities come out.
-- [Check out technologies](https://www.hakiriup.com/docs/technologies-version-formats) the list of supported technologies and version formats.
+- [Learn about](https://hakiri.io/docs/manifest-file) advanced manifest file options.
+- [Setup your](https://hakiri.io/docs/authentication-token) authentication token.
+- [Sync your technologies and gems](https://hakiri.io/docs/syncing-with-the-cloud) with the cloud and get notified when new vulnerabilities come out.
+- [Check out technologies](https://hakiri.io/docs/technologies-version-formats) the list of supported technologies and version formats.
 
 ## Contribute
 

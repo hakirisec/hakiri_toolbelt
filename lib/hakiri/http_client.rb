@@ -8,7 +8,7 @@ class Hakiri::HttpClient
   #
   def initialize
     @auth_token = (ENV['HAKIRI_AUTH_TOKEN'] or nil)
-    @api_url = (ENV['HAKIRI_API_URL'] or 'https://www.hakiriup.com/api/v1')
+    @api_url = (ENV['HAKIRI_API_URL'] or 'https://hakiri.io/api/v1')
   end
 
   #
