@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    hakiri (0.5.2)
+    hakiri (0.6.1)
       activesupport
       bundler
       commander
       i18n
-      json_pure
+      json
       rake
       rest-client
       terminal-table
@@ -14,21 +14,22 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (3.2.14)
+    activesupport (3.2.16)
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     cane (2.6.0)
       parallel
     commander (4.1.5)
       highline (~> 1.6.11)
-    highline (1.6.19)
-    i18n (0.6.5)
-    json_pure (1.8.0)
-    mime-types (1.25)
+    highline (1.6.20)
+    i18n (0.6.9)
+    json (1.8.1)
+    json (1.8.1-java)
+    mime-types (2.1)
     minitest (5.0.6)
     multi_json (1.7.7)
     parallel (0.7.1)
-    rake (10.1.0)
+    rake (10.1.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     simplecov (0.8.0.pre)
