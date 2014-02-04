@@ -21,7 +21,7 @@ Wanna try it on your system?
 
 ## Installation
 
-Hakiri Toolbelt is a Ruby gem that can be installed by
+Hakiri Toolbelt is a Ruby gem that can be installed with
 
 ~~~
 $ gem install hakiri
@@ -74,7 +74,7 @@ ActiveRecord in Ruby on Rails before 2.3.17, 3.1.x before 3.1.11, and 3.2.x befo
 ...
 ~~~
 
-Simple, right? If you manifest file is in a different directory or named differently you can specify it in a parameter:
+Simple, right? If your manifest file is in a different directory or has a different name you can specify it in a parameter:
 
 ~~~
 $ hakiri system:scan -m ../my_stack.json
@@ -84,7 +84,7 @@ You can learn more about configuring the manifest in [Hakiri docs](https://hakir
 
 ## Test Your Gemfile
 
-Hakiri supports vulnerability detection for a collection of gems listed in [the docs](https://hakiri.io/docs/supported-gems). To scan a `Gemfile.lock` for vulnerabilities in the current directory do the following:
+To scan a `Gemfile.lock` for vulnerabilities in the current directory do the following:
 
 ~~~
 $ hakiri gemfile:scan
@@ -96,7 +96,7 @@ To scan a specific `Gemfile.lock` add the `-g` parameter at the end:
 $ hakiri gemfile:scan -g ../Gemfile.lock
 ~~~
 
-This will scan your `Gemfile.lock` and check with the server whether it has any vulnerable gems. It only checks gems that are [supported by Hakiri](https://hakiri.io/docs/manifest-file).
+This will scan your `Gemfile.lock` and check with the server whether it has any vulnerable gems.
 
 You can also [sync your gems](https://hakiri.io/docs/syncing-with-the-cloud) with the cloud and get notified when new vulnerabilities come out.
 
@@ -106,8 +106,8 @@ We just went through the most basic Hakiri use case. Here are links to docs desc
 
 - [Learn about](https://hakiri.io/docs/manifest-file) advanced manifest file options.
 - [Setup your](https://hakiri.io/docs/authentication-token) authentication token.
-- [Sync your technologies and gems](https://hakiri.io/docs/syncing-with-the-cloud) with the cloud and get notified when new vulnerabilities come out.
-- [Check out technologies](https://hakiri.io/docs/technologies-version-formats) the list of supported technologies and version formats.
+- [Sync your technologies](https://hakiri.io/docs/syncing-with-the-cloud) with the cloud and get notified when new vulnerabilities come out.
+- [Check out supported technologies](https://hakiri.io/docs/technologies-version-formats) and version formats.
 
 ## Contribute
 
