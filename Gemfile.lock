@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hakiri (0.6.1)
+    hakiri (0.7.0)
       activesupport
       bundler
       commander
@@ -24,7 +24,6 @@ GEM
     highline (1.6.20)
     i18n (0.6.9)
     json (1.8.1)
-    json (1.8.1-java)
     mime-types (2.1)
     minitest (5.0.6)
     multi_json (1.7.7)
