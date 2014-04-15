@@ -1,4 +1,5 @@
 # Secure Rails with Hakiri
+[![security](https://hakiri.io/github/vasinov/hakiri_toolbelt/dev.svg)](https://hakiri.io/github/vasinov/hakiri_toolbelt/dev)
 
 Hakiri Toolbelt is a command line interface for the Hakiri platform. It allows Ruby on Rails developers to automate version scraping of Ruby gems, servers, databases and other technologies used in their stacks. For each technology Hakiri shows CVE vulnerabilities. Here is a snippet of how it works:
 
