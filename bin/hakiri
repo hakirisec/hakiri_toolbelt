@@ -25,6 +25,7 @@ command 'system:scan' do |c|
   c.description = 'This command grabs your custom stack JSON file and shows vulnerabilities in your project.'
   c.option '--manifest STRING', String, 'Path to your manifest JSON file'
   c.option '--force', 'Force showing vulnerabilities without asking for it first.'
+  c.option '--quiet', 'Only show vulnerability report'
 
   c.action do |args, options|
     options.default :manifest => './manifest.json'
@@ -68,6 +69,7 @@ command 'gemfile:scan' do |c|
   c.description = 'This command grabs your Gemfile.lock file and shows vulnerabilities in it.'
   c.option '--gemfile STRING', String, 'Path to your Gemfile.lock'
   c.option '--force', 'Force showing vulnerabilities without asking for it first.'
+  c.option '--quiet', 'Only show vulnerability report'
 
   c.action do |args, options|
     options.default :gemfile => './Gemfile.lock'

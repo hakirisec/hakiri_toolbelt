@@ -8,17 +8,17 @@ class Hakiri::System < Hakiri::Cli
       @stack.fetch_versions
 
       # GETTING VERSIONS
-      say '-----> Scanning system for software versions...'
+      say_q '-----> Scanning system for software versions...'
 
       if @stack.technologies.empty?
         say '       No versions were found...'
       else
         @stack.technologies.each do |technology_slug, payload|
-          say "       Found #{payload[:name]} #{payload[:version]}"
+          say_q "       Found #{payload[:name]} #{payload[:version]}"
         end
 
         # GETTING VULNERABILITIES
-        say '-----> Searching for vulnerabilities...'
+        say_q '-----> Searching for vulnerabilities...'
         params = { :technologies => @stack.technologies }
         response = @http_client.get_issues(params)
 
