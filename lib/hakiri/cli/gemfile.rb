@@ -10,11 +10,11 @@ class Hakiri::Gemfile < Hakiri::Cli
         say '       No gems were found in your Gemfile.lock...'
       else
         @stack.technologies.each do |technology_slug, payload|
-          say "       Found #{payload[:name]} #{payload[:version]}"
+          say_q "       Found #{payload[:name]} #{payload[:version]}"
         end
 
         # GETTING VULNERABILITIES
-        say '-----> Searching for vulnerabilities...'
+        say_q '-----> Searching for vulnerabilities...'
         params = { :technologies => @stack.technologies }
         response = @http_client.get_issues(params)
 
@@ -34,7 +34,7 @@ class Hakiri::Gemfile < Hakiri::Cli
               end
             end
 
-            if agree 'Show all of them? (yes or no) '
+            if @options.force || agree('Show all of them? (yes or no) ')
               puts ' '
               response[:technologies].each do |technology|
                 technology[:issues].each do |issue|
