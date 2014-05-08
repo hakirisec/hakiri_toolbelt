@@ -99,6 +99,7 @@ command 'code:report' do |c|
   c.summary = 'Check code report on the latest push.'
   c.description = 'This command connects to Hakiri and returns a report on vulnerabilities from the latest push.'
   c.option '--stack INTEGER', String, 'Your stack ID.'
+  c.option '--force', 'Force showing vulnerabilities without asking for it first.'
 
   c.action do |args, options|
     cli = Hakiri::Code.new(args, options)

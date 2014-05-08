@@ -21,7 +21,7 @@ class Hakiri::Code < Hakiri::Cli
         else
           say "!      #{response[:warnings_count]} warnings were found in the code"
 
-          if agree 'Show all of them? (yes or no) '
+          if @options.force || agree('Show all of them? (yes or no) ')
             puts ' '
             response[:warnings].each do |warning|
               say warning[:warning_type]
