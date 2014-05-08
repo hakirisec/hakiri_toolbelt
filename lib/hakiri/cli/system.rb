@@ -38,7 +38,7 @@ class Hakiri::System < Hakiri::Cli
               end
             end
 
-            if agree 'Show all of them? (yes or no) '
+            if @options.force || agree('Show all of them? (yes or no) ')
               puts ' '
               response[:technologies].each do |technology|
                 technology[:issues].each do |issue|
