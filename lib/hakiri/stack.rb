@@ -28,24 +28,39 @@ class Hakiri::Stack
   # @param [String] gemfile
   #   Gemfile.lock file.
   #
-  def build_from_gemfile(gemfile)
+  def build_from_gemfile(options)
+    gemfile = options.gemfile
     begin
       lockfile = Bundler::LockfileParser.new(IO.read(gemfile))
 
+      insec_srcs = []
       lockfile.sources.map do |source|
         case source
           when Bundler::Source::Git
             case source.uri
               when /^git:/, /^http:/
-                say "!      Insecure Source: #{source.uri}"
+                if not options.json
+                  say "!      Insecure Source: #{source.uri}"
+                else
+                  insec_srcs.push(source.uri)
+                end
             end
           when Bundler::Source::Rubygems
             source.remotes.each do |uri|
               if uri.scheme == 'http'
-                say "!      Insecure Source: #{uri.to_s}"
+                if not options.json then
+                  say "!      Insecure Source: #{uri.to_s}"
+                else
+                  insec_srcs.push(uri.to_s)
+                end
               end
             end
         end
+      end
+      if options.json && insec_srcs.length >= 1 then
+        is = {}
+        is[:insecure_sources] = insec_srcs
+        puts is.to_json
       end
 
       lockfile.specs.each do |gem|

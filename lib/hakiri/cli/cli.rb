@@ -10,6 +10,6 @@ class Hakiri::Cli
   end
   
   def say_q msg
-    say msg unless @options.quiet
+    say msg unless @options.quiet or @options.json
   end
 end

@@ -4,7 +4,7 @@ class Hakiri::Gemfile < Hakiri::Cli
   #
   def scan
     if File.exist? @options.gemfile
-      @stack.build_from_gemfile(@options.gemfile)
+      @stack.build_from_gemfile(@options)
 
       if @stack.technologies.empty?
         say '       No gems were found in your Gemfile.lock...'
@@ -26,27 +26,31 @@ class Hakiri::Gemfile < Hakiri::Cli
           authenticated = response[:meta][:authenticated]
 
           if response[:technologies].empty?
-            say '       No vulnerabilities found. Keep it up!'
+            say_q '       No vulnerabilities found. Keep it up!'
           else
             response[:technologies].each do |technology|
               unless technology[:issues_count] == 0
-                say "!      Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:name]} #{technology[:version]}"
+                say_q "!      Found #{technology[:issues_count].to_i} #{'vulnerability'.pluralize if technology[:issues_count].to_i != 1} in #{technology[:name]} #{technology[:version]}"
               end
             end
 
-            if @options.force || agree('Show all of them? (yes or no) ')
-              puts ' '
-              response[:technologies].each do |technology|
-                technology[:issues].each do |issue|
-                  say issue[:name]
-                  puts issue[:description]
-                  puts ' '
+            if @options.json || @options.force || agree('Show all of them? (yes or no) ')
+              say_q ' '
+              if @options.json then
+                puts response.to_json
+              else
+                response[:technologies].each do |technology|
+                  technology[:issues].each do |issue|
+                    say issue[:name]
+                    puts issue[:description]
+                    puts ' '
+                  end
                 end
               end
             end
 
             unless authenticated
-              say '****** Signup on hakiri.io to get notified when new vulnerabilities come out.'
+              say_q '****** Signup on hakiri.io to get notified when new vulnerabilities come out.'
             end
           end
         end
