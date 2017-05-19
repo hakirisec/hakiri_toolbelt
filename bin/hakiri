@@ -70,6 +70,7 @@ command 'gemfile:scan' do |c|
   c.option '--gemfile STRING', String, 'Path to your Gemfile.lock'
   c.option '--force', 'Force showing vulnerabilities without asking for it first.'
   c.option '--quiet', 'Only show vulnerability report'
+  c.option '--json', 'Output will be in JSON only.'
 
   c.action do |args, options|
     options.default :gemfile => './Gemfile.lock'
